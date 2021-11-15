@@ -1,13 +1,13 @@
 variable "project_id" {
   description = "The project ID to manage the Cloud SQL resources"
   type        = string
-  default     = "test-project--s"
+  default     = ""
 }
 
 variable "name" {
   type        = string
   description = "The name of the Cloud SQL resources"
-  default     = "my-first-mysql"
+  default     = ""
 }
 
 variable "random_instance_name" {
@@ -27,7 +27,7 @@ variable "database_version" {
 variable "region" {
   description = "The region of the Cloud SQL resources"
   type        = string
-  default     = "us-central1"
+  default     = ""
 }
 
 // Master
@@ -40,7 +40,7 @@ variable "tier" {
 variable "zone" {
   description = "The zone for the master instance, it should be something like: `us-central1-a`, `us-east1-c`."
   type        = string
-  default     = "us-central1-a"
+  default     = ""
 }
 
 variable "activation_policy" {
@@ -82,7 +82,7 @@ variable "pricing_plan" {
 variable "maintenance_window_day" {
   description = "The day of week (1-7) for the master instance maintenance."
   type        = number
-  default     = 1
+  default     = 6
 }
 
 variable "maintenance_window_hour" {
@@ -313,5 +313,5 @@ variable "enable_client_ssl" {
 variable "client_cert_name" {
   description = "name for the client certificate"
   type        = string
-  default     = "client_cert"
+  default     = "clientapictecert"
 }
