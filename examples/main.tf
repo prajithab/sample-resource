@@ -11,7 +11,7 @@ provider "google-beta" {
   zone    = var.zone
 }
 
-module "documentdb_cluster" {
+module "sql_cluster" {
   source = "../../modules/sqlprod"
 
   project_id = var.project_id
