@@ -13,3 +13,5 @@
 .kitchen
 
 credentials.json
+
+.DS_Store

@@ -1,3 +1,4 @@
+//Mandatory
 variable "project_id" {
   description = "The project ID to manage the Cloud SQL resources"
   type        = string
@@ -58,19 +59,132 @@ variable "user_labels" {
   description = "The key/value labels for the master instances."
 }
 
-variable "ip_configuration" {
-  description = "The ip_configuration settings subblock"
-  type = object({
-    authorized_networks = list(map(string))
-    ipv4_enabled        = bool
-    private_network     = string
-    require_ssl         = bool
-  })
-  default = {
-    authorized_networks = []
-    ipv4_enabled        = true
-    private_network     = null
-    require_ssl         = null
-  }
+variable "database_version" {
+  description = "The database version to use"
+  type        = string
+  default     = ""
 }
 
+variable "encryption_key_name" {
+  description = "The full path to the encryption key used for the CMEK disk encryption"
+  type        = string
+  default     = ""
+}
+
+variable "enable_client_ssl" {
+  description = "Enable or disable the creation of the client ssl"
+  type        = bool
+  default     = true
+}
+
+variable "client_cert_name" {
+  description = "name for the client certificate"
+  type        = string
+  default     = ""
+}
+
+//optional
+
+variable "disk_size" {
+  description = "The disk size for the master instance"
+  type        = number
+  default     = 10
+}
+
+variable "tier" {
+  description = "The tier for the master instance."
+  type        = string
+  default     = "db-n1-standard-1"
+}
+
+variable "read_replicas" {
+  description = "List of read replicas to create"
+  type = list(object({
+    name            = string
+    tier            = string
+    zone            = string
+    disk_type       = string
+    disk_autoresize = bool
+    disk_size       = string
+    user_labels     = map(string)
+    database_flags = list(object({
+      name  = string
+      value = string
+    }))
+    ip_configuration = object({
+      authorized_networks = list(map(string))
+      ipv4_enabled        = bool
+      private_network     = string
+      require_ssl         = bool
+    })
+  }))
+  default = []
+}
+
+variable "read_replica_name_suffix" {
+  description = "The optional suffix to add to the read instance name"
+  type        = string
+  default     = ""
+}
+
+variable "additional_databases" {
+  description = "A list of databases to be created in your cluster"
+  type = list(object({
+    name      = string
+    charset   = string
+    collation = string
+  }))
+  default = []
+}
+
+variable "additional_users" {
+  description = "A list of users to be created in your cluster"
+  type = list(object({
+    name     = string
+    password = string
+    host     = string
+  }))
+  default = []
+}
+
+variable "create_timeout" {
+  description = "The optional timout that is applied to limit long database creates."
+  type        = string
+  default     = "10m"
+}
+
+variable "update_timeout" {
+  description = "The optional timout that is applied to limit long database updates."
+  type        = string
+  default     = "10m"
+}
+
+variable "module_depends_on" {
+  description = "List of modules or resources this module depends on."
+  type        = list(any)
+  default     = []
+}
+
+variable "availability_type" {
+  description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
+  type        = string
+  default     = "REGIONAL"
+}
+
+variable "maintenance_window_day" {
+  description = "The day of week (1-7) for the master instance maintenance."
+  type        = number
+  default     = 6
+}
+
+variable "maintenance_window_hour" {
+  description = "The hour of day (0-23) maintenance window for the master instance maintenance."
+  type        = number
+  default     = 23
+}
+
+variable "maintenance_window_update_track" {
+  description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
+  type        = string
+  default     = "canary"
+}
