@@ -24,6 +24,9 @@ module "sql_cluster" {
   user_name  = var.user_name
   password   = var.user_password
   user_labels = var.user_labels
-  ip_configuration = var.ip_configuration
-
+  database_version = var.database_version
+  encryption_key_name = var.encryption_key_name
+  enable_client_ssl = var.enable_client_ssl
+  client_cert_name  = var.client_cert_name
+  
 }

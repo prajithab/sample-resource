@@ -20,7 +20,7 @@ variable "random_instance_name" {
 variable "database_version" {
   description = "The database version to use"
   type        = string
-  default     = "MYSQL_8_0"
+  default     = ""
 }
 
 // required
@@ -145,7 +145,7 @@ variable "ip_configuration" {
   })
   default = {
     authorized_networks = []
-    ipv4_enabled        = true
+    ipv4_enabled        = false
     private_network     = null
     require_ssl         = null
   }
@@ -185,7 +185,7 @@ variable "read_replica_name_suffix" {
 variable "db_name" {
   description = "The name of the default database to create"
   type        = string
-  default     = "default"
+  default     = ""
 }
 
 variable "db_charset" {
@@ -225,7 +225,7 @@ variable "additional_databases" {
 variable "user_name" {
   description = "The name of the default user"
   type        = string
-  default     = "default"
+  default     = ""
 }
 
 variable "user_host" {
@@ -271,7 +271,7 @@ variable "delete_timeout" {
 variable "encryption_key_name" {
   description = "The full path to the encryption key used for the CMEK disk encryption"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "module_depends_on" {
@@ -313,5 +313,5 @@ variable "enable_client_ssl" {
 variable "client_cert_name" {
   description = "name for the client certificate"
   type        = string
-  default     = "clientapictecert"
+  default     = ""
 }
