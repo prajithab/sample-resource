@@ -30,6 +30,15 @@ availability_type = "ZONAL"
 maintenance_window_day = 6
 maintenance_window_hour = 23
 maintenance_window_update_track = "canary"
+backup_configuration = {
+  binary_log_enabled = true
+  enabled = true
+  start_time = "00:30"
+  location = null
+  transaction_log_retention_days = null
+  retained_backups = null
+  retention_unit = null
+}
 
 #random_instance_name = false
 #activation_policy = "ALWAYS"
@@ -38,14 +47,6 @@ maintenance_window_update_track = "canary"
 #pricing_plan = "PER_USE"
 # database_flags = [{ "name" = "sample", "value" = "sample" }, { "name" = "sample", "value" = "sample" } ]
 #backup_configuration = {
-# binary_log_enabled = false
-# enabled = false
-# start_time = null
-# location = null
-# transaction_log_retention_days = null
-# retained_backups = null
-# retention_unit = null
-#}
 #ip_configuration = {
 # authorized_networks = []
 # ipv4_enabled = false

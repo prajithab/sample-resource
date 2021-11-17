@@ -15,7 +15,7 @@ locals {
   }
 
   replicas = {
-    for x in var.read_replicas : "${var.name}-replica${var.read_replica_name_suffix}${x.name}" => x
+  for x in var.read_replicas : "${var.name}-replica${var.read_replica_name_suffix}${x.name}" => x
   }
 
   databases = { for db in var.additional_databases : db.name => db }
@@ -198,10 +198,10 @@ resource "google_sql_database_instance" "replicas" {
     activation_policy = "ALWAYS"
 
     dynamic "ip_configuration" {
-      for_each = [lookup(each.value, "ip_configuration", {})]
+      for_each = [local.ip_configurations[local.ip_configuration_enabled ? "enabled" : "disabled"]]
       content {
         ipv4_enabled    = lookup(ip_configuration.value, "ipv4_enabled", null)
-        private_network = lookup(ip_configuration.value, "private_network", null)
+        private_network = data.google_compute_network.mysql_network.id
         require_ssl     = lookup(ip_configuration.value, "require_ssl", null)
 
         dynamic "authorized_networks" {
@@ -215,14 +215,14 @@ resource "google_sql_database_instance" "replicas" {
       }
     }
 
-    disk_autoresize = lookup(each.value, "disk_autoresize", var.disk_autoresize)
-    disk_size       = lookup(each.value, "disk_size", var.disk_size)
-    disk_type       = lookup(each.value, "disk_type", var.disk_type)
-    pricing_plan    = "PER_USE"
-    user_labels     = lookup(each.value, "user_labels", var.user_labels)
+    disk_autoresize = var.disk_autoresize
+    disk_size       = var.disk_size
+    disk_type       = var.disk_type
+    pricing_plan    = var.pricing_plan
+    user_labels     = var.user_labels
 
     dynamic "database_flags" {
-      for_each = lookup(each.value, "database_flags", [])
+      for_each = var.database_flags
       content {
         name  = lookup(database_flags.value, "name", null)
         value = lookup(database_flags.value, "value", null)
@@ -230,7 +230,7 @@ resource "google_sql_database_instance" "replicas" {
     }
 
     location_preference {
-      zone = lookup(each.value, "zone", var.zone)
+      zone = var.zone
     }
 
   }

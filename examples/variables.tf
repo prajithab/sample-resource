@@ -71,11 +71,11 @@ variable "encryption_key_name" {
   default     = ""
 }
 
-variable "enable_client_ssl" {
-  description = "Enable or disable the creation of the client ssl"
-  type        = bool
-  default     = true
-}
+#variable "enable_client_ssl" {
+#  description = "Enable or disable the creation of the client ssl"
+#  type        = bool
+#  default     = true
+#}
 
 variable "client_cert_name" {
   description = "name for the client certificate"
@@ -88,35 +88,17 @@ variable "client_cert_name" {
 variable "disk_size" {
   description = "The disk size for the master instance"
   type        = number
-  default     = 10
 }
 
 variable "tier" {
   description = "The tier for the master instance."
   type        = string
-  default     = "db-n1-standard-1"
 }
 
 variable "read_replicas" {
   description = "List of read replicas to create"
   type = list(object({
     name            = string
-    tier            = string
-    zone            = string
-    disk_type       = string
-    disk_autoresize = bool
-    disk_size       = string
-    user_labels     = map(string)
-    database_flags = list(object({
-      name  = string
-      value = string
-    }))
-    ip_configuration = object({
-      authorized_networks = list(map(string))
-      ipv4_enabled        = bool
-      private_network     = string
-      require_ssl         = bool
-    })
   }))
   default = []
 }
@@ -150,13 +132,11 @@ variable "additional_users" {
 variable "create_timeout" {
   description = "The optional timout that is applied to limit long database creates."
   type        = string
-  default     = "10m"
 }
 
 variable "update_timeout" {
   description = "The optional timout that is applied to limit long database updates."
   type        = string
-  default     = "10m"
 }
 
 variable "module_depends_on" {
@@ -174,17 +154,36 @@ variable "availability_type" {
 variable "maintenance_window_day" {
   description = "The day of week (1-7) for the master instance maintenance."
   type        = number
-  default     = 6
 }
 
 variable "maintenance_window_hour" {
   description = "The hour of day (0-23) maintenance window for the master instance maintenance."
   type        = number
-  default     = 23
 }
 
 variable "maintenance_window_update_track" {
   description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
   type        = string
-  default     = "canary"
+}
+
+variable "backup_configuration" {
+  description = "The backup_configuration settings subblock for the database setings"
+  type = object({
+    binary_log_enabled             = bool
+    enabled                        = bool
+    start_time                     = string
+    location                       = string
+    transaction_log_retention_days = string
+    retained_backups               = number
+    retention_unit                 = string
+  })
+  default = {
+    binary_log_enabled             = true
+    enabled                        = true
+    start_time                     = "00:30"
+    location                       = null
+    transaction_log_retention_days = null
+    retained_backups               = null
+    retention_unit                 = null
+  }
 }

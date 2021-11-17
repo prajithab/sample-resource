@@ -1,13 +1,10 @@
 variable "project_id" {
   description = "The project ID to manage the Cloud SQL resources"
-  type        = string
-  default     = ""
 }
 
 variable "name" {
   type        = string
   description = "The name of the Cloud SQL resources"
-  default     = ""
 }
 
 variable "random_instance_name" {
@@ -20,14 +17,12 @@ variable "random_instance_name" {
 variable "database_version" {
   description = "The database version to use"
   type        = string
-  default     = ""
 }
 
 // required
 variable "region" {
   description = "The region of the Cloud SQL resources"
   type        = string
-  default     = ""
 }
 
 // Master
@@ -40,7 +35,6 @@ variable "tier" {
 variable "zone" {
   description = "The zone for the master instance, it should be something like: `us-central1-a`, `us-east1-c`."
   type        = string
-  default     = ""
 }
 
 variable "activation_policy" {
@@ -109,7 +103,6 @@ variable "database_flags" {
 
 variable "user_labels" {
   type        = map(string)
-  default     = {}
   description = "The key/value labels for the master instances."
 }
 
@@ -125,9 +118,9 @@ variable "backup_configuration" {
     retention_unit                 = string
   })
   default = {
-    binary_log_enabled             = false
-    enabled                        = false
-    start_time                     = null
+    binary_log_enabled             = true
+    enabled                        = true
+    start_time                     = "00:30"
     location                       = null
     transaction_log_retention_days = null
     retained_backups               = null
@@ -147,7 +140,7 @@ variable "ip_configuration" {
     authorized_networks = []
     ipv4_enabled        = false
     private_network     = null
-    require_ssl         = null
+    require_ssl         = true
   }
 }
 
@@ -156,22 +149,6 @@ variable "read_replicas" {
   description = "List of read replicas to create"
   type = list(object({
     name            = string
-    tier            = string
-    zone            = string
-    disk_type       = string
-    disk_autoresize = bool
-    disk_size       = string
-    user_labels     = map(string)
-    database_flags = list(object({
-      name  = string
-      value = string
-    }))
-    ip_configuration = object({
-      authorized_networks = list(map(string))
-      ipv4_enabled        = bool
-      private_network     = string
-      require_ssl         = bool
-    })
   }))
   default = []
 }
@@ -185,7 +162,6 @@ variable "read_replica_name_suffix" {
 variable "db_name" {
   description = "The name of the default database to create"
   type        = string
-  default     = ""
 }
 
 variable "db_charset" {
@@ -197,13 +173,11 @@ variable "db_charset" {
 variable "vpcnetwork" {
   description = "The charset for the default database"
   type        = string
-  default     = ""
 }
 
 variable "vpcproject" {
   description = "The charset for the default database"
   type        = string
-  default     = ""
 }
 
 variable "db_collation" {
@@ -225,7 +199,6 @@ variable "additional_databases" {
 variable "user_name" {
   description = "The name of the default user"
   type        = string
-  default     = ""
 }
 
 variable "user_host" {
@@ -237,7 +210,6 @@ variable "user_host" {
 variable "user_password" {
   description = "The password for the default user. If not set, a random one will be generated and available in the generated_user_password output variable."
   type        = string
-  default     = ""
 }
 
 variable "additional_users" {
@@ -271,7 +243,6 @@ variable "delete_timeout" {
 variable "encryption_key_name" {
   description = "The full path to the encryption key used for the CMEK disk encryption"
   type        = string
-  default     = ""
 }
 
 variable "module_depends_on" {
@@ -313,5 +284,4 @@ variable "enable_client_ssl" {
 variable "client_cert_name" {
   description = "name for the client certificate"
   type        = string
-  default     = ""
 }

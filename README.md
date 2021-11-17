@@ -3,7 +3,7 @@
 terraform-google-sql makes it easy to create Google CloudSQL instance and implement high availability settings.
 This module consists of the following submodules:
 
-- [mssql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-mysql)
+- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-mysql)
 
 See more details in each module's README.
 
