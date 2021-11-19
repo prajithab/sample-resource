@@ -5,6 +5,7 @@ import (
 	"os"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
+// These modules may be useful once we get DB Connection techniques better understood.
 //	"database/sql"
 //	_ "github.com/go-sql-driver/mysql"
 //	"github.com/gruntwork-io/terratest/modules/environment"
@@ -17,22 +18,21 @@ import (
 
 func	TestCloudSQLMySQL(t *testing.T) {
 
-	
-//	os.Environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/N488567/bin/digital-dfp-dev.json"
 	os.Environ()
 	 terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
                 TerraformDir: "../examples/",
                 VarFiles: []string{"terratest.tfvars"},
                 NoColor: true,
         })
+	
 	defer terraform.Destroy(t, terraformOptions)
 
 	
-        // website::tag::2::Run "terraform init" and "terraform apply".
         // This will run `terraform init` and `terraform apply` and fail the test if there are any errors
         terraform.InitAndApply(t, terraformOptions)
 
-	
+	// a simple test of existence. Other outputs should be tested as well	
+	// Best to test using gcloud api to confirm existence using a means other than terraform.
 	dbConnectionNameFromOutput := terraform.Output(t, terraformOptions, "instance_connection_name")
 	assert.Contains(t,dbConnectionNameFromOutput, "terratest")
 	assert.NotContains(t,dbConnectionNameFromOutput, "adsfasdfasdfkj;klj;adslkjf;lkajsdf")

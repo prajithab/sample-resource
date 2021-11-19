@@ -1,3 +1,4 @@
+# These variables are set for the terratest test only. Not for general useage.
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
