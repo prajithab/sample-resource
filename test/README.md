@@ -24,12 +24,12 @@ Simply update the file with a new value.
 cd to this directory
 ```
 cd test
-''''
+'''
 configure dependencies:
 ```
 go mod init test
 go mod tidy
-''''
+'''
 
 ### Run test
 ```
