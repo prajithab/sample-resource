@@ -1,40 +1,40 @@
 output "instance_name" {
-  value       = module.sql_cluster.default.name
+  value       = module.sql_cluster.instance_name
   description = "The instance name for the master instance"
 }
 
 #output "instance_ip_address" {
-#  value       = module.sql_cluster.default.ip_address
+#  value       = module.sql_cluster.ip_address
 #  description = "The IPv4 address assigned for the master instance"
 #}
 
 output "private_address" {
-  value       = module.sql_cluster.default.private_ip_address
+  value       = module.sql_cluster.private_address
   description = "The private IP address assigned for the master instance"
 }
 
 #output "instance_first_ip_address" {
-#  value       = module.sql_cluster.default.first_ip_address
+#  value       = module.sql_cluster.first_ip_address
 #  description = "The first IPv4 address of the addresses assigned for the master instance."
 #}
 
 output "instance_connection_name" {
-  value       = module.sql_cluster.default.connection_name
+  value       = module.sql_cluster.instance_connection_name
   description = "The connection name of the master instance to be used in connection strings"
 }
 
 output "instance_self_link" {
-  value       = module.sql_cluster.default.self_link
+  value       = module.sql_cluster.instance_self_link
   description = "The URI of the master instance"
 }
 # will it reuired by App team..?
 #output "instance_server_ca_cert" {
-#  value       = module.sql_cluster.default.server_ca_cert
+#  value       = module.sql_cluster.server_ca_cert
 #  description = "The CA certificate information used to connect to the SQL instance via SSL"
 #}
 
 output "instance_service_account_email_address" {
-  value       = module.sql_cluster.default.service_account_email_address
+  value       = module.sql_cluster.instance_service_account_email_address
   description = "The service account email address assigned to the master instance"
 }
 
@@ -77,17 +77,17 @@ output "instance_service_account_email_address" {
 
 #output "public_ip_address" {
 #  description = "The first public (PRIMARY) IPv4 address assigned for the master instance"
-#  value       = module.sql_cluster.default.public_ip_address
+#  value       = module.sql_cluster.public_ip_address
 #}
 #
 #output "private_ip_address" {
 #  description = "The first private (PRIVATE) IPv4 address assigned for the master instance"
-#  value       = module.sql_cluster.default.private_ip_address
+#  value       = module.sql_cluster.private_ip_address
 #}
 
 // Resources
 #output "primary" {
-#  value       = module.sql_cluster.default
+#  value       = module.sql_cluster
 #  description = "The `module.sql_cluster` resource representing the primary instance"
 #  sensitive   = true
 #}
@@ -98,7 +98,7 @@ output "instance_service_account_email_address" {
 #}
 
 #output "instances" {
-#  value       = concat([module.sql_cluster.default], values(module.sql_cluster.replicas))
+#  value       = concat([module.sql_cluster], values(module.sql_cluster.replicas))
 #  description = "A list of all `module.sql_cluster` resources we've created"
 #  sensitive   = true
 #}

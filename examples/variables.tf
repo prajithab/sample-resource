@@ -85,105 +85,105 @@ variable "client_cert_name" {
 
 //optional
 
-variable "disk_size" {
-  description = "The disk size for the master instance"
-  type        = number
-}
-
-variable "tier" {
-  description = "The tier for the master instance."
-  type        = string
-}
-
-variable "read_replicas" {
-  description = "List of read replicas to create"
-  type = list(object({
-    name            = string
-  }))
-  default = []
-}
-
-variable "read_replica_name_suffix" {
-  description = "The optional suffix to add to the read instance name"
-  type        = string
-  default     = ""
-}
-
-variable "additional_databases" {
-  description = "A list of databases to be created in your cluster"
-  type = list(object({
-    name      = string
-    charset   = string
-    collation = string
-  }))
-  default = []
-}
-
-variable "additional_users" {
-  description = "A list of users to be created in your cluster"
-  type = list(object({
-    name     = string
-    password = string
-    host     = string
-  }))
-  default = []
-}
-
-variable "create_timeout" {
-  description = "The optional timout that is applied to limit long database creates."
-  type        = string
-}
-
-variable "update_timeout" {
-  description = "The optional timout that is applied to limit long database updates."
-  type        = string
-}
-
-variable "module_depends_on" {
-  description = "List of modules or resources this module depends on."
-  type        = list(any)
-  default     = []
-}
-
-variable "availability_type" {
-  description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
-  type        = string
-  default     = "REGIONAL"
-}
-
-variable "maintenance_window_day" {
-  description = "The day of week (1-7) for the master instance maintenance."
-  type        = number
-}
-
-variable "maintenance_window_hour" {
-  description = "The hour of day (0-23) maintenance window for the master instance maintenance."
-  type        = number
-}
-
-variable "maintenance_window_update_track" {
-  description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
-  type        = string
-}
-
-variable "backup_configuration" {
-  description = "The backup_configuration settings subblock for the database setings"
-  type = object({
-    binary_log_enabled             = bool
-    enabled                        = bool
-    start_time                     = string
-    location                       = string
-    transaction_log_retention_days = string
-    retained_backups               = number
-    retention_unit                 = string
-  })
-  default = {
-    binary_log_enabled             = true
-    enabled                        = true
-    start_time                     = "00:30"
-    location                       = null
-    transaction_log_retention_days = null
-    retained_backups               = null
-    retention_unit                 = null
-  }
-}
+#variable "disk_size" {
+#  description = "The disk size for the master instance"
+#  type        = number
+#}
+#
+#variable "tier" {
+#  description = "The tier for the master instance."
+#  type        = string
+#}
+#
+#variable "read_replicas" {
+#  description = "List of read replicas to create"
+#  type = list(object({
+#    name            = string
+#  }))
+#  default = []
+#}
+#
+#variable "read_replica_name_suffix" {
+#  description = "The optional suffix to add to the read instance name"
+#  type        = string
+#  default     = ""
+#}
+#
+#variable "additional_databases" {
+#  description = "A list of databases to be created in your cluster"
+#  type = list(object({
+#    name      = string
+#    charset   = string
+#    collation = string
+#  }))
+#  default = []
+#}
+#
+#variable "additional_users" {
+#  description = "A list of users to be created in your cluster"
+#  type = list(object({
+#    name     = string
+#    password = string
+#    host     = string
+#  }))
+#  default = []
+#}
+#
+#variable "create_timeout" {
+#  description = "The optional timout that is applied to limit long database creates."
+#  type        = string
+#}
+#
+#variable "update_timeout" {
+#  description = "The optional timout that is applied to limit long database updates."
+#  type        = string
+#}
+#
+#variable "module_depends_on" {
+#  description = "List of modules or resources this module depends on."
+#  type        = list(any)
+#  default     = []
+#}
+#
+#variable "availability_type" {
+#  description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
+#  type        = string
+#  default     = "REGIONAL"
+#}
+#
+#variable "maintenance_window_day" {
+#  description = "The day of week (1-7) for the master instance maintenance."
+#  type        = number
+#}
+#
+#variable "maintenance_window_hour" {
+#  description = "The hour of day (0-23) maintenance window for the master instance maintenance."
+#  type        = number
+#}
+#
+#variable "maintenance_window_update_track" {
+#  description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
+#  type        = string
+#}
+#
+#variable "backup_configuration" {
+#  description = "The backup_configuration settings subblock for the database setings"
+#  type = object({
+#    binary_log_enabled             = bool
+#    enabled                        = bool
+#    start_time                     = string
+#    location                       = string
+#    transaction_log_retention_days = string
+#    retained_backups               = number
+#    retention_unit                 = string
+#  })
+#  default = {
+#    binary_log_enabled             = true
+#    enabled                        = true
+#    start_time                     = "00:30"
+#    location                       = null
+#    transaction_log_retention_days = null
+#    retained_backups               = null
+#    retention_unit                 = null
+#  }
+#}

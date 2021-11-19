@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-tf1-mysql-nprod-1"
+name                = "pegasus-poc-sunil-mysql-nprod"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
@@ -18,37 +18,37 @@ user_labels         = {
 }
 
 #optional Variables
-disk_size                       = 50
-tier                            = "db-n1-standard-16"
-read_replicas                   = [
-  {
-    "name"             = "-pega1"
-  }, {
-    "name"             = "-pega2"
-  }
-]
-read_replica_name_suffix        = "1"
-additional_databases            = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "utf8_general_ci" }]
-additional_users                = [
-  { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" },
-  { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
-]
-create_timeout                  = "5m"
-update_timeout                  = "5m"
-module_depends_on               = ["pegasus"]
-#availability_type = "ZONAL"
-maintenance_window_day          = 3
-maintenance_window_hour         = 16
-maintenance_window_update_track = "canary"
-backup_configuration            = {
-  binary_log_enabled             = true
-  enabled                        = true
-  start_time                     = "00:30"
-  location                       = null
-  transaction_log_retention_days = null
-  retained_backups               = null
-  retention_unit                 = null
-}
+#disk_size                       = 50
+#tier                            = "db-n1-standard-16"
+#read_replicas                   = [
+#  {
+#    "name"             = "-pega1"
+#  }, {
+#    "name"             = "-pega2"
+#  }
+#]
+#read_replica_name_suffix        = "1"
+#additional_databases            = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "utf8_general_ci" }]
+#additional_users                = [
+#  { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" },
+#  { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
+#]
+#create_timeout                  = "5m"
+#update_timeout                  = "5m"
+#module_depends_on               = ["pegasus"]
+##availability_type = "ZONAL"
+#maintenance_window_day          = 3
+#maintenance_window_hour         = 16
+#maintenance_window_update_track = "canary"
+#backup_configuration            = {
+#  binary_log_enabled             = true
+#  enabled                        = true
+#  start_time                     = "00:30"
+#  location                       = null
+#  transaction_log_retention_days = null
+#  retained_backups               = null
+#  retention_unit                 = null
+#}
 
 
 #random_instance_name = false
