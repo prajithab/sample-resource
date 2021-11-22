@@ -1,51 +1,157 @@
 package test
 
 import (
-	"testing"
-	"os"
+	// 	"fmt"
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
-// These modules may be useful once we get DB Connection techniques better understood.
-//	"database/sql"
-//	_ "github.com/go-sql-driver/mysql"
-//	"github.com/gruntwork-io/terratest/modules/environment"
-//	"time"
+	"os"
+	"strings"
+	"testing"
+	// These modules may be useful once we get DB Connection techniques better understood.
+	//	"database/sql"
+	//	_ "github.com/go-sql-driver/mysql"
+	//	"github.com/gruntwork-io/terratest/modules/environment"
+	//	"time"
+	"context"
+	"golang.org/x/oauth2/google"
+	sqladmin "google.golang.org/api/sqladmin/v1beta4"
 )
 
+func ListInstances(projectId string) ([]*sqladmin.DatabaseInstance, error) {
+	ctx := context.Background()
 
+	// Create an http.Client that uses Application Default Credentials.
+	hc, err := google.DefaultClient(ctx, sqladmin.SqlserviceAdminScope)
+	if err != nil {
+		return nil, err
+	}
 
+	// Create the Google Cloud SQL service.
+	service, err := sqladmin.New(hc)
+	if err != nil {
+		return nil, err
+	}
 
+	// List instances for the project ID.
+	instances, err := service.Instances.List(projectId).Do()
+	if err != nil {
+		return nil, err
+	}
+	return instances.Items, nil
+}
 
-func	TestCloudSQLMySQL(t *testing.T) {
-
+func TestValidateSQLConnectionName(t *testing.T) {
 	os.Environ()
-	 terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-                TerraformDir: "../examples/",
-                VarFiles: []string{"terratest.tfvars"},
-                NoColor: true,
-        })
-	
-	defer terraform.Destroy(t, terraformOptions)
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: "../examples/",
+		VarFiles:     []string{"nprod.tfvars"},
+		NoColor:      true,
+	})
 
-	
-        // This will run `terraform init` and `terraform apply` and fail the test if there are any errors
-        terraform.InitAndApply(t, terraformOptions)
+		defer terraform.Destroy(t, terraformOptions)
 
-	// a simple test of existence. Other outputs should be tested as well	
+	//         This will run `terraform init` and `terraform apply` and fail the test if there are any errors
+		terraform.InitAndApply(t, terraformOptions)
+
+	// a simple test of existence. Other outputs should be tested as well
 	// Best to test using gcloud api to confirm existence using a means other than terraform.
-	dbConnectionNameFromOutput := terraform.Output(t, terraformOptions, "instance_connection_name")
-	assert.Contains(t,dbConnectionNameFromOutput, "terratest")
-	assert.NotContains(t,dbConnectionNameFromOutput, "adsfasdfasdfkj;klj;adslkjf;lkajsdf")
 
-// Needs further review to connect dynamically. below requires separate outputs file to expose temp creds.
-//	dbUserFromOutput := terraform.Output(t, terraformOptions, "user_name")
-//	dbUserPWFromOutput := terraform.Output(t, terraformOptions, "generated_user_password")
-//	dbUserPW := dbUserFromOutput + ":" + dbUserPWFromOutput
-//	db,err := sql.Open(dbConnectionNameFromOutput, dbUserPW)
-//
-//	if err != nil {
-//		panic(err)
-//	}
-//	db.SetConnMaxLifetime(time.Minute * 2)
+	instance_connection_name := terraform.Output(t, terraformOptions, "instance_connection_name")
+	instance_name := terraform.Output(t, terraformOptions, "instance_name")
 
+	// Connect GCP and get SQL instance details
+	instanceAggregatedList, err := ListInstances("digital-dfp-dev")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, instanceList := range instanceAggregatedList {
+		if strings.Compare(instanceList.Name, instance_name) == 0 {
+			assert.Equal(t, instance_connection_name, instanceList.ConnectionName, "instance_connection_name should match")
+		}
+	}
+}
+
+func TestSQLExistAndValidateSQLName(t *testing.T) {
+	os.Environ()
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: "../examples/",
+		VarFiles:     []string{"nprod.tfvars"},
+		NoColor:      true,
+	})
+
+	instance_name := terraform.Output(t, terraformOptions, "instance_name")
+	instanceAggregatedList, err := ListInstances("digital-dfp-dev")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, instanceList := range instanceAggregatedList {
+		if strings.Compare(instanceList.Name, instance_name) == 0 {
+			assert.Equal(t, instanceList.Name, instance_name, "instance name should match")
+		}
+	}
+}
+
+func TestSQLInstanceLink(t *testing.T) {
+	os.Environ()
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: "../examples/",
+		VarFiles:     []string{"nprod.tfvars"},
+		NoColor:      true,
+	})
+
+	instance_name := terraform.Output(t, terraformOptions, "instance_name")
+	instance_self_link := terraform.Output(t, terraformOptions, "instance_self_link")
+	instanceAggregatedList, err := ListInstances("digital-dfp-dev")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, instanceList := range instanceAggregatedList {
+		if strings.Compare(instanceList.Name, instance_name) == 0 {
+			assert.Equal(t, instanceList.SelfLink, instance_self_link, "instance SelfLink should match")
+		}
+	}
+}
+
+func TestSQLServiceAcctEmail(t *testing.T) {
+	os.Environ()
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: "../examples/",
+		VarFiles:     []string{"nprod.tfvars"},
+		NoColor:      true,
+	})
+
+	instance_name := terraform.Output(t, terraformOptions, "instance_name")
+	instance_service_account_email_address := terraform.Output(t, terraformOptions, "instance_service_account_email_address")
+	instanceAggregatedList, err := ListInstances("digital-dfp-dev")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, instanceList := range instanceAggregatedList {
+		if strings.Compare(instanceList.Name, instance_name) == 0 {
+			assert.Equal(t, instanceList.ServiceAccountEmailAddress, instance_service_account_email_address, "instance ServiceAccountEmailAddress should match")
+		}
+	}
+}
+
+func TestSQLIpaddress(t *testing.T) {
+	os.Environ()
+	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
+		TerraformDir: "../examples/",
+		VarFiles:     []string{"nprod.tfvars"},
+		NoColor:      true,
+	})
+
+	instance_name := terraform.Output(t, terraformOptions, "instance_name")
+	private_address := terraform.Output(t, terraformOptions, "private_address")
+	instanceAggregatedList, err := ListInstances("digital-dfp-dev")
+	if err != nil {
+		t.Fatal(err)
+	}
+	for _, instanceList := range instanceAggregatedList {
+		if strings.Compare(instanceList.Name, instance_name) == 0 {
+			for _, iplist := range instanceList.IpAddresses {
+				assert.Equal(t, iplist.IpAddress, private_address, "instance private_address should match")
+			}
+		}
+	}
 }

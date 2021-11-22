@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-sunil-mysql-nprod"
+name                = "pegasus-poc-sunil1-mysql-nprod-1"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"

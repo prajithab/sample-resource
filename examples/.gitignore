@@ -7,3 +7,5 @@ backend.tfvars
 # .tfstate files
 *.tfstate
 *.tfstate.*
+*.mod
+*.sum

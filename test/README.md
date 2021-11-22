@@ -9,10 +9,10 @@ The cluster is destroyed after the test.
 
 Set the GOOGLE_APPLICATION_CREDENTIALS environment variable in your shell before executing terratest.
 Set-up terratest following these instructions:
-
+```
 Download go: https://golang.org/
 export GOOGLE_APPLICATION_CREDENTIALS=$HOME/bin/digital-dfp-dev.json 
-
+```
 ## Usage
 This terratest module executes a simple test using the generic module with the tfvars file ../examples/terratest.tfvars
 #### Note: 
