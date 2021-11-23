@@ -1,17 +1,29 @@
 # terraform-google-sql
 
-terraform-google-sql makes it easy to create Google CloudSQL instance and implement high availability settings.
+## Scope
+
+
+terraform-google-sql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
 This module consists of the following submodules:
 
 - [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-mysql)
 
-See more details in each module's README.
+See more details in the example folders README.
+
+## Guarantees
+
+This module enforces the following guidelines:
+[Custom CVS standard for Cloud SQL Database](https://cvsdigital.atlassian.net/wiki/spaces/CDSC/pages/2069103751/Custom+CVS+standard+for+Cloud+SQL+Database)
+
+and follows these guidelines:
+[Module Development Practices](https://cvsdigital.atlassian.net/wiki/spaces/~44381436/pages/2149221346/Module+Development+Practices)
+[HashiCorp Standard Module Structure](https://www.terraform.io/docs/language/modules/develop/structure.html)
 
 ## Compatibility
 This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+.
 If you find incompatibilities using Terraform `>=0.13`, please open an issue.
 
-Note:- For README.md update Intelliji IDE is used
+Note:- For README.md update Intelliji IDE is used.
 
 ## Requirements
 

@@ -1,0 +1,11 @@
+# Reference: https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
+
+## Production Change Controls - Ping Pegasus Team for PR Reviews.
+## Dependency on Settings -> Manage Access -> Invite teams or people -> Add Pegasus team with Write Access
+## Dependency on Settings -> Branches -> Create/Modify Rule for 'master' ->
+##              Check Require pull request review before merging
+##              Check Require review from Code Owners
+##              Check Include Administrators
+#/CODEOWNERS    @stallardj 
+###
+## This is a placehoder file to be completed with Pegasus team members and other approved  users once gitlab groups have been created. 
