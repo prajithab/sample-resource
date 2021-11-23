@@ -13,10 +13,13 @@ See more details in the example folders README.
 ## Guarantees
 
 This module enforces the following guidelines:
-[Custom CVS standard for Cloud SQL Database](https://cvsdigital.atlassian.net/wiki/spaces/CDSC/pages/2069103751/Custom+CVS+standard+for+Cloud+SQL+Database)
+[Custom CVS standard for Cloud SQL Database]
+(https://cvsdigital.atlassian.net/wiki/spaces/CDSC/pages/2069103751/Custom+CVS+standard+for+Cloud+SQL+Database)
 
 and follows these guidelines:
-[Module Development Practices](https://cvsdigital.atlassian.net/wiki/spaces/~44381436/pages/2149221346/Module+Development+Practices)
+[Module Development Practices]
+(https://cvsdigital.atlassian.net/wiki/spaces/~44381436/pages/2149221346/Module+Development+Practices)
+
 [HashiCorp Standard Module Structure](https://www.terraform.io/docs/language/modules/develop/structure.html)
 
 ## Compatibility
@@ -24,6 +27,7 @@ This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0
 If you find incompatibilities using Terraform `>=0.13`, please open an issue.
 
 Note:- For README.md update Intelliji IDE is used.
+You can download the community version here: https://www.jetbrains.com/idea/download/#section=mac
 
 ## Requirements
 
