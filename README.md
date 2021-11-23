@@ -11,15 +11,9 @@ See more details in each module's README.
 This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+.
 If you find incompatibilities using Terraform `>=0.13`, please open an issue.
 
-
-## Upgrading
-
-The current version of MySQL is 8.0. 
-
+Note:- For README.md update Intelliji IDE is used
 
 ## Requirements
-
-### Installation Dependencies
 
 - [Terraform](https://www.terraform.io/downloads.html) >= 0.13.0
 
@@ -27,8 +21,6 @@ The current version of MySQL is 8.0.
 |------|---------|
 | <a name="provider_google"></a> [google](#provider\_google) | 3.86.0 |
 | <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 3.86.0 |
-
-
 
 ### Enable APIs
 
@@ -47,16 +39,28 @@ the following APIs on the project where your VPC resides:
 
 ## Provision Instructions
 
-This module has no root configuration. A module with no root configuration cannot be used directly.
-
-Copy and paste into your Terraform configuration, insert the variables, and run terraform init :
+This module has root configuration.
+Copy and paste into your Terraform configuration,In the `examples` section insert the variables (*.tfvars based on environment), and run terraform init :
 
 For MySQL :
 ```
-module "sql-db" {
-  source  = "GoogleCloudPlatform/sql-db/google//modules/mysql"
-  version = "4.0.0"
-}
+module "sql_cluster" {
+  source = "../"
+
+  project_id = var.project_id
+  region     = var.region
+  zone       = var.zone
+  vpcnetwork = var.vpcnetwork
+  vpcproject = var.vpcproject
+  db_name     = var.db_name
+  name       = var.name
+  user_name  = var.user_name
+  user_password   = var.user_password
+  user_labels = var.user_labels
+  database_version = var.database_version
+  encryption_key_name = var.encryption_key_name
+  client_cert_name  = var.client_cert_name
+  }
 ```
 
 ## Resources

@@ -1,11 +1,11 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-sunil1-mysql-nprod-1"
+name                = "pegasus-poc-sunil1-mysql-nprod-3"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
-db_name             = "VoyagerSDK"
+db_name             = "MysqlDB"
 user_name           = "clientapi"
 user_password       = "-350Mx"
 database_version    = "MYSQL_8_0"
@@ -50,7 +50,7 @@ user_labels         = {
 #  retention_unit                 = null
 #}
 
-
+#Default variables
 #random_instance_name = false
 #activation_policy = "ALWAYS"
 #disk_autoresize = true

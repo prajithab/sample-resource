@@ -3,16 +3,18 @@ provider "google" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
+  version = "~> 3.86.0"
 }
 
 provider "google-beta" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
+  version = "~> 3.86.0-beta.1"
 }
 
 module "sql_cluster" {
-  source = "../modules"
+  source = "../"
 
   project_id = var.project_id
   region     = var.region
