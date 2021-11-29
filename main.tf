@@ -230,7 +230,7 @@ resource "google_sql_database_instance" "replicas" {
     }
 
     location_preference {
-      zone = var.zone
+      zone = lookup(each.value, "zone", var.zone)
     }
 
   }

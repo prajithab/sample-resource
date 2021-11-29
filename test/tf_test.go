@@ -43,8 +43,8 @@ func ListInstances(projectId string) ([]*sqladmin.DatabaseInstance, error) {
 func TestSQLAndValidateconfigParams(t *testing.T) {
 	os.Environ()
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
-		TerraformDir: "../examples/",
-		VarFiles:     []string{"nprod.tfvars"},
+		TerraformDir: "../examples/ephemeral-testing/",
+		VarFiles:     []string{"terratest.tfvars"},
 		NoColor:      true,
 	})
 

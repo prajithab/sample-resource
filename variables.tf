@@ -46,7 +46,7 @@ variable "activation_policy" {
 variable "availability_type" {
   description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
   type        = string
-  default     = "REGIONAL"
+  default     = "ZONAL"
 }
 
 variable "disk_autoresize" {
@@ -149,6 +149,8 @@ variable "read_replicas" {
   description = "List of read replicas to create"
   type = list(object({
     name            = string
+    zone            = string
+
   }))
   default = []
 }
