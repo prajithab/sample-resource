@@ -13,6 +13,7 @@ See more details in the example folders README.
 ## Guarantees
 
 This module enforces the following guidelines:
+
 [Custom CVS standard for Cloud SQL Database](https://cvsdigital.atlassian.net/wiki/spaces/CDSC/pages/2069103751/Custom+CVS+standard+for+Cloud+SQL+Database)
 
 and follows these guidelines:
