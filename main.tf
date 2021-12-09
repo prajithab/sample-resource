@@ -20,6 +20,7 @@ locals {
 
   databases = { for db in var.additional_databases : db.name => db }
   users     = { for u in var.additional_users : u.name => u }
+  IAM_users = { for u in var.cloud_IAM_users : u.name => u }
 
   // HA method using REGIONAL availability_type requires binary logs to be enabled
   binary_log_enabled = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "binary_log_enabled", null)
@@ -45,6 +46,14 @@ resource "google_sql_database_instance" "default" {
   encryption_key_name = var.encryption_key_name
 
   settings {
+    database_flags {
+      name  = "local_infile"
+      value = "off"
+    }
+    database_flags {
+      name  = "skip_show_database"
+      value = "on"
+    }
     tier              = var.tier
     activation_policy = var.activation_policy
     availability_type = var.availability_type
@@ -145,22 +154,13 @@ resource "google_sql_database" "additional_databases" {
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
 
-resource "random_id" "user-password" {
-  keepers = {
-    name = google_sql_database_instance.default.name
-  }
-
-  byte_length = 8
-  depends_on  = [null_resource.module_depends_on, google_sql_database_instance.default]
-}
-
 resource "google_sql_user" "default" {
   count      = var.enable_default_user ? 1 : 0
   name       = var.user_name
   project    = var.project_id
   instance   = google_sql_database_instance.default.name
   host       = var.user_host
-  password   = var.user_password == "" ? random_id.user-password.hex : var.user_password
+  password   = var.user_password
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
 
@@ -168,10 +168,17 @@ resource "google_sql_user" "additional_users" {
   for_each   = local.users
   project    = var.project_id
   name       = each.value.name
-  password   = lookup(each.value, "password", random_id.user-password.hex)
+  password   = lookup(each.value, "password")
   host       = lookup(each.value, "host", var.user_host)
   instance   = google_sql_database_instance.default.name
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
+}
+
+resource "google_sql_user" "users" {
+  for_each = local.IAM_users
+  name     = each.value.name
+  instance = google_sql_database_instance.default.name
+  type     = "CLOUD_IAM_USER"
 }
 
 resource "null_resource" "module_depends_on" {
@@ -251,7 +258,12 @@ resource "google_sql_database_instance" "replicas" {
 }
 
 resource "google_sql_ssl_cert" "client_cert" {
-  count       = var.enable_client_ssl ? 1 : 0
   common_name = var.client_cert_name
   instance    = google_sql_database_instance.default.name
+}
+
+resource "google_sql_ssl_cert" "replica_client_cert" {
+  for_each    = local.replicas
+  common_name = var.client_cert_name
+  instance    = "${local.master_instance_name}-replica${var.read_replica_name_suffix}${each.value.name}"
 }

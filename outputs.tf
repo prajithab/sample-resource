@@ -38,6 +38,26 @@ output "instance_service_account_email_address" {
   description = "The service account email address assigned to the master instance"
 }
 
+output "instance_local_infile_skip_show_database_value" {
+  value       = google_sql_database_instance.default.settings
+  description = "The service account email address assigned to the master instance"
+}
+
+output "instance_encryption_key_name" {
+  value       = google_sql_database_instance.default.encryption_key_name
+  description = "The service account email address assigned to the master instance"
+}
+
+output "instance_ssl_cert_name" {
+  value       = google_sql_ssl_cert.client_cert.common_name
+  description = "The service account email address assigned to the master instance"
+}
+
+output "instance_replica_ssl_cert_name" {
+  value       = [for r in google_sql_ssl_cert.replica_client_cert : r.common_name]
+  description = "The service account email address assigned to the master instance"
+}
+
 // Replicas
 #output "replicas_instance_first_ip_addresses" {
 #  value       = [for r in google_sql_database_instance.replicas : r.ip_address]

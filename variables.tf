@@ -224,6 +224,14 @@ variable "additional_users" {
   default = []
 }
 
+variable "cloud_IAM_users" {
+  description = "A list of users to be created in your cluster"
+  type = list(object({
+    name     = string
+  }))
+  default = []
+}
+
 variable "create_timeout" {
   description = "The optional timout that is applied to limit long database creates."
   type        = string
@@ -277,11 +285,11 @@ variable "enable_default_user" {
   default     = true
 }
 
-variable "enable_client_ssl" {
-  description = "Enable or disable the creation of the client ssl"
-  type        = bool
-  default     = true
-}
+#variable "enable_client_ssl" {
+#  description = "Enable or disable the creation of the client ssl"
+#  type        = bool
+#  default     = true
+#}
 
 variable "client_cert_name" {
   description = "name for the client certificate"

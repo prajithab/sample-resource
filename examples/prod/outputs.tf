@@ -38,6 +38,26 @@ output "instance_service_account_email_address" {
   description = "The service account email address assigned to the master instance"
 }
 
+output "instance_local_infile_skip_show_database_value" {
+  value       = module.sql_cluster.instance_local_infile_skip_show_database_value
+  description = "The service account email address assigned to the master instance"
+}
+
+output "instance_encryption_key_name" {
+  value       = module.sql_cluster.instance_encryption_key_name
+  description = "The service account email address assigned to the master instance"
+}
+
+output "instance_ssl_cert_name" {
+  value       = module.sql_cluster.instance_ssl_cert_name
+  description = "The service account email address assigned to the master instance"
+}
+
+output "instance_replica_ssl_cert_name" {
+  value       = module.sql_cluster.instance_replica_ssl_cert_name
+  description = "The service account email address assigned to the master instance"
+}
+
 // Replicas
 #output "replicas_instance_first_ip_addresses" {
 #  value       = [for r in module.sql_cluster.replicas : r.ip_address]

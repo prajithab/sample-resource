@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-sprint-mysql-prod"
+name                = "pegasus-poc-dfpdemo1-mysql-prod"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
@@ -9,8 +9,7 @@ db_name             = "mysqlprod"
 user_name           = "clientapi"
 user_password       = "-350Mx"
 database_version    = "MYSQL_8_0"
-encryption_key_name = null
-enable_client_ssl   = true
+encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
 client_cert_name    = "clientapictecert"
 user_labels         = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
@@ -18,7 +17,7 @@ user_labels         = {
 }
 
 #optional Variables
-disk_size                       = 15
+disk_size                       = 10
 tier                            = "db-n1-standard-16"
 read_replicas                   = [
   {
@@ -34,6 +33,10 @@ additional_databases            = [{ "name" = "add-pega", "charset" = "utf8", "c
 additional_users                = [
   { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" },
   { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
+]
+cloud_IAM_users                 = [
+  { "name" = "k8s-infrastructure-temporary@digital-dfp-dev.iam.gserviceaccount.com" },
+  { "name" = "k8s-infrastructure-temporary@digital-dfp-qa.iam.gserviceaccount.com" }
 ]
 create_timeout                  = "5m"
 update_timeout                  = "5m"
