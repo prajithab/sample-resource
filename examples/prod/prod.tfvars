@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-dfpdemo1-mysql-prod"
+name                = "pegasus-poc-dfpdemo12-mysql-prod"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
@@ -9,7 +9,7 @@ db_name             = "mysqlprod"
 user_name           = "clientapi"
 user_password       = "-350Mx"
 database_version    = "MYSQL_8_0"
-encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
+encryption_key_name = null
 client_cert_name    = "clientapictecert"
 user_labels         = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
@@ -30,16 +30,18 @@ read_replicas                   = [
 ]
 read_replica_name_suffix        = "1"
 additional_databases            = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "utf8_general_ci" }]
-additional_users                = [
-  { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" },
-  { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
+#additional_users                = [
+#  { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" },
+#  { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
+#]
+cloud_IAM_SAusers                 = [
+  { "name" = "k8s-infrastructure-temporary@digital-dfp-dev.iam.gserviceaccount.com" }
 ]
 cloud_IAM_users                 = [
-  { "name" = "k8s-infrastructure-temporary@digital-dfp-dev.iam.gserviceaccount.com" },
-  { "name" = "k8s-infrastructure-temporary@digital-dfp-qa.iam.gserviceaccount.com" }
+  { "name" = "reddys10@aetna.com" }
 ]
-create_timeout                  = "5m"
-update_timeout                  = "5m"
+create_timeout                  = "30m"
+update_timeout                  = "30m"
 module_depends_on               = ["pegasus"]
 availability_type               = "REGIONAL"
 maintenance_window_day          = 3

@@ -21,6 +21,7 @@ locals {
   databases = { for db in var.additional_databases : db.name => db }
   users     = { for u in var.additional_users : u.name => u }
   IAM_users = { for u in var.cloud_IAM_users : u.name => u }
+  IAM_sausers = { for u in var.cloud_IAM_SAusers : u.name => u }
 
   // HA method using REGIONAL availability_type requires binary logs to be enabled
   binary_log_enabled = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "binary_log_enabled", null)
@@ -52,6 +53,10 @@ resource "google_sql_database_instance" "default" {
     }
     database_flags {
       name  = "skip_show_database"
+      value = "on"
+    }
+    database_flags {
+      name  = "cloudsql_iam_authentication"
       value = "on"
     }
     tier              = var.tier
@@ -181,6 +186,13 @@ resource "google_sql_user" "users" {
   type     = "CLOUD_IAM_USER"
 }
 
+resource "google_sql_user" "sausers" {
+  for_each = local.IAM_sausers
+  name     = each.value.name
+  instance = google_sql_database_instance.default.name
+  type     = "CLOUD_IAM_SERVICE_ACCOUNT"
+}
+
 resource "null_resource" "module_depends_on" {
   triggers = {
     value = length(var.module_depends_on)
@@ -262,8 +274,8 @@ resource "google_sql_ssl_cert" "client_cert" {
   instance    = google_sql_database_instance.default.name
 }
 
-resource "google_sql_ssl_cert" "replica_client_cert" {
-  for_each    = local.replicas
-  common_name = var.client_cert_name
-  instance    = "${local.master_instance_name}-replica${var.read_replica_name_suffix}${each.value.name}"
-}
+#resource "google_sql_ssl_cert" "replica_client_cert" {
+#  for_each    = local.replicas
+#  common_name = var.client_cert_name
+#  instance    = "${local.master_instance_name}-replica${var.read_replica_name_suffix}${each.value.name}"
+#}

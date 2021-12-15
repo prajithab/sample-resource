@@ -9,3 +9,4 @@ backend.tfvars
 *.tfstate.*
 *.mod
 *.sum
+go
