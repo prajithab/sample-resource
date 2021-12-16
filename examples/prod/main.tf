@@ -35,6 +35,8 @@ module "sql_cluster" {
   read_replica_name_suffix        = var.read_replica_name_suffix
   additional_databases            = var.additional_databases
   additional_users                = var.additional_users
+  cloud_IAM_users                 = var.cloud_IAM_users
+  cloud_IAM_SAusers                 = var.cloud_IAM_SAusers
   create_timeout                  = var.create_timeout
   update_timeout                  = var.update_timeout
   module_depends_on               = var.module_depends_on

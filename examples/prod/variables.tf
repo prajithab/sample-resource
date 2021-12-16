@@ -127,6 +127,22 @@ variable "additional_users" {
   default = []
 }
 
+variable "cloud_IAM_users" {
+  description = "A list of users to be created in your cluster"
+  type = list(object({
+    name     = string
+  }))
+  default = []
+}
+
+variable "cloud_IAM_SAusers" {
+  description = "A list of users to be created in your cluster"
+  type = list(object({
+    name     = string
+  }))
+  default = []
+}
+
 variable "create_timeout" {
   description = "The optional timout that is applied to limit long database creates."
   type        = string
