@@ -7,12 +7,7 @@ locals {
   master_instance_name = var.random_instance_name ? "${var.name}-${random_id.suffix[0].hex}" : var.name
 
   default_user_host        = "%"
-  ip_configuration_enabled = length(keys(var.ip_configuration)) > 0 ? true : false
-
-  ip_configurations = {
-    enabled  = var.ip_configuration
-    disabled = {}
-  }
+  ip_configuration_enabled = true
 
   replicas = {
   for x in var.read_replicas : "${var.name}-replica${var.read_replica_name_suffix}${x.name}" => x
@@ -80,23 +75,18 @@ resource "google_sql_database_instance" "default" {
         }
       }
     }
-    dynamic "ip_configuration" {
-      for_each = [local.ip_configurations[local.ip_configuration_enabled ? "enabled" : "disabled"]]
-      content {
-        ipv4_enabled    = lookup(ip_configuration.value, "ipv4_enabled", null)
+    ip_configuration {
+        ipv4_enabled    = false
         private_network = data.google_compute_network.mysql_network.id
-        # private_network = lookup(ip_configuration.value, "private_network", null)
-        require_ssl = lookup(ip_configuration.value, "require_ssl", null)
+        require_ssl = true
 
-        dynamic "authorized_networks" {
-          for_each = lookup(ip_configuration.value, "authorized_networks", [])
-          content {
-            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
-            name            = lookup(authorized_networks.value, "name", null)
-            value           = lookup(authorized_networks.value, "value", null)
-          }
-        }
-      }
+#        dynamic "authorized_networks" {
+#          content {
+#            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
+#            name            = lookup(authorized_networks.value, "name", null)
+#            value           = lookup(authorized_networks.value, "value", null)
+#          }
+#        }
     }
 
     disk_autoresize = var.disk_autoresize
@@ -216,22 +206,20 @@ resource "google_sql_database_instance" "replicas" {
     tier              = lookup(each.value, "tier", var.tier)
     activation_policy = "ALWAYS"
 
-    dynamic "ip_configuration" {
-      for_each = [local.ip_configurations[local.ip_configuration_enabled ? "enabled" : "disabled"]]
-      content {
-        ipv4_enabled    = lookup(ip_configuration.value, "ipv4_enabled", null)
+    ip_configuration {
+        ipv4_enabled    = false
         private_network = data.google_compute_network.mysql_network.id
-        require_ssl     = lookup(ip_configuration.value, "require_ssl", null)
+        require_ssl     = true
 
-        dynamic "authorized_networks" {
-          for_each = lookup(ip_configuration.value, "authorized_networks", [])
-          content {
-            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
-            name            = lookup(authorized_networks.value, "name", null)
-            value           = lookup(authorized_networks.value, "value", null)
-          }
-        }
-      }
+#        dynamic "authorized_networks" {
+#          for_each = lookup(ip_configuration.value, "authorized_networks", [])
+#          content {
+#            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
+#            name            = lookup(authorized_networks.value, "name", null)
+#            value           = lookup(authorized_networks.value, "value", null)
+#          }
+#        }
+    
     }
 
     disk_autoresize = var.disk_autoresize
