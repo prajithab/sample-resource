@@ -128,21 +128,6 @@ variable "backup_configuration" {
   }
 }
 
-variable "ip_configuration" {
-  description = "The ip_configuration settings subblock"
-  type = object({
-    authorized_networks = list(map(string))
-    ipv4_enabled        = bool
-    private_network     = string
-    require_ssl         = bool
-  })
-  default = {
-    authorized_networks = []
-    ipv4_enabled        = false
-    private_network     = null
-    require_ssl         = true
-  }
-}
 
 // Read Replicas
 variable "read_replicas" {
