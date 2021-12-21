@@ -1,5 +1,10 @@
 # terraform-google-sql
 
+## Ownership
+
+This module was developed by the Pegasus team. 
+Contact info: DL202101181149363320@AETNA.com
+
 ## Scope
 
 
