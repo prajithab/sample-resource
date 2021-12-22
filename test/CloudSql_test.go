@@ -49,10 +49,10 @@ func TestSQLAndValidateconfigParams(t *testing.T) {
 		NoColor:      true,
 	})
 
-// 	defer terraform.Destroy(t, terraformOptions)
+// 		defer terraform.Destroy(t, terraformOptions)
 
 	//         This will run `terraform init` and `terraform apply` and fail the test if there are any errors
-	terraform.InitAndApply(t, terraformOptions)
+		terraform.InitAndApply(t, terraformOptions)
 
 	// a simple test of existence. Other outputs should be tested as well
 	// Best to test using gcloud api to confirm existence using a means other than terraform.
@@ -144,7 +144,8 @@ func TestSQLSecurityValidateBackupConfiguration(t *testing.T) {
 		NoColor:      true,
 	})
 
-	defer terraform.Destroy(t, terraformOptions)
+		defer terraform.Destroy(t, terraformOptions)
+	instance_name = terraform.Output(t, terraformOptions, "instance_name")
 	// Connect GCP and get SQL instance details
 	instanceAggregatedList, err := ListInstances("digital-dfp-dev")
 	if err != nil {

@@ -10,12 +10,12 @@ locals {
   ip_configuration_enabled = true
 
   replicas = {
-  for x in var.read_replicas : "${var.name}-replica${var.read_replica_name_suffix}${x.name}" => x
+    for x in var.read_replicas : "${var.name}-replica${var.read_replica_name_suffix}${x.name}" => x
   }
 
-  databases = { for db in var.additional_databases : db.name => db }
-  users     = { for u in var.additional_users : u.name => u }
-  IAM_users = { for u in var.cloud_IAM_users : u.name => u }
+  databases   = { for db in var.additional_databases : db.name => db }
+  users       = { for u in var.additional_users : u.name => u }
+  IAM_users   = { for u in var.cloud_IAM_users : u.name => u }
   IAM_sausers = { for u in var.cloud_IAM_SAusers : u.name => u }
 
   // HA method using REGIONAL availability_type requires binary logs to be enabled
@@ -76,17 +76,17 @@ resource "google_sql_database_instance" "default" {
       }
     }
     ip_configuration {
-        ipv4_enabled    = false
-        private_network = data.google_compute_network.mysql_network.id
-        require_ssl = true
+      ipv4_enabled    = false
+      private_network = data.google_compute_network.mysql_network.id
+      require_ssl     = true
 
-#        dynamic "authorized_networks" {
-#          content {
-#            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
-#            name            = lookup(authorized_networks.value, "name", null)
-#            value           = lookup(authorized_networks.value, "value", null)
-#          }
-#        }
+      #        dynamic "authorized_networks" {
+      #          content {
+      #            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
+      #            name            = lookup(authorized_networks.value, "name", null)
+      #            value           = lookup(authorized_networks.value, "value", null)
+      #          }
+      #        }
     }
 
     disk_autoresize = var.disk_autoresize
@@ -207,19 +207,19 @@ resource "google_sql_database_instance" "replicas" {
     activation_policy = "ALWAYS"
 
     ip_configuration {
-        ipv4_enabled    = false
-        private_network = data.google_compute_network.mysql_network.id
-        require_ssl     = true
+      ipv4_enabled    = false
+      private_network = data.google_compute_network.mysql_network.id
+      require_ssl     = true
 
-#        dynamic "authorized_networks" {
-#          for_each = lookup(ip_configuration.value, "authorized_networks", [])
-#          content {
-#            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
-#            name            = lookup(authorized_networks.value, "name", null)
-#            value           = lookup(authorized_networks.value, "value", null)
-#          }
-#        }
-    
+      #        dynamic "authorized_networks" {
+      #          for_each = lookup(ip_configuration.value, "authorized_networks", [])
+      #          content {
+      #            expiration_time = lookup(authorized_networks.value, "expiration_time", null)
+      #            name            = lookup(authorized_networks.value, "name", null)
+      #            value           = lookup(authorized_networks.value, "value", null)
+      #          }
+      #        }
+
     }
 
     disk_autoresize = var.disk_autoresize
@@ -262,8 +262,8 @@ resource "google_sql_ssl_cert" "client_cert" {
   instance    = google_sql_database_instance.default.name
 }
 
-#resource "google_sql_ssl_cert" "replica_client_cert" {
-#  for_each    = local.replicas
-#  common_name = var.client_cert_name
-#  instance    = "${local.master_instance_name}-replica${var.read_replica_name_suffix}${each.value.name}"
-#}
+resource "google_sql_ssl_cert" "replica_client_cert" {
+  for_each    = local.replicas
+  common_name = var.client_cert_name
+  instance    = "${local.master_instance_name}-replica${var.read_replica_name_suffix}${each.value.name}"
+}
