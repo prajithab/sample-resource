@@ -80,7 +80,7 @@ module "sql_cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >0.13 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >0.13.0 |
 ## Resources
 
 | Name | Type |
