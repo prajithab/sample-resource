@@ -1,3 +1,7 @@
+terraform {
+	required_version = ">0.13"
+}
+
 data "google_compute_network" "mysql_network" {
   name    = var.vpcnetwork
   project = var.vpcproject

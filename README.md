@@ -1,3 +1,4 @@
+
 # terraform-google-sql
 
 ## Ownership
@@ -5,8 +6,18 @@
 This module was developed by the Pegasus team.
 Contact info: DL202101181149363320@AETNA.com
 
-## Scope
+### README formatting
+This readme document is maintained via the terraform-docs tool.
+Information on terraform-docs is available here:https://terraform-docs.io/user-guide/configuration/content/
+The configuration files for terraform-docs are contained in this folder:
+./.config
+    README_DOCS_INPUT.md - Manually entered text of readme
+    .tfdocs-config.yml - terradocs template
 
+To generate a new readme, run this command from the module's root directory:
+terraform-docs -c .config/.tfdocs-config.yml . > README.md
+
+## Scope
 
 terraform-google-sql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
 This module consists of the following submodules:
@@ -30,20 +41,6 @@ and follows these guidelines:
 ## Compatibility
 This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+.
 If you find incompatibilities using Terraform `>=0.13`, please open an issue.
-
-Note:- For README.md update Intelliji IDE is used.
-You can download the community version here: https://www.jetbrains.com/idea/download/#section=mac
-## Requirements
-
-- [Terraform](https://www.terraform.io/downloads.html) >= 0.13.0
-
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 3.86.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 3.86.0 |
 
 ## Modules
 
@@ -71,6 +68,19 @@ module "sql_cluster" {
   }
 ```
 
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_google"></a> [google](#provider\_google) | 4.5.0 |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 4.5.0 |
+| <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
+| <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >0.13 |
 ## Resources
 
 | Name | Type |
@@ -88,7 +98,20 @@ module "sql_cluster" {
 | [null_resource.module_depends_on](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [random_id.suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [google_compute_network.mysql_network](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_network) | data source |
+## Outputs
 
+| Name | Description |
+|------|-------------|
+| <a name="output_Iam_Cloud_Sql_sauser"></a> [Iam\_Cloud\_Sql\_sauser](#output\_Iam\_Cloud\_Sql\_sauser) | The service account email address assigned to the master instance |
+| <a name="output_Iam_Cloud_Sql_user"></a> [Iam\_Cloud\_Sql\_user](#output\_Iam\_Cloud\_Sql\_user) | The service account email address assigned to the master instance |
+| <a name="output_instance_connection_name"></a> [instance\_connection\_name](#output\_instance\_connection\_name) | The connection name of the master instance to be used in connection strings |
+| <a name="output_instance_encryption_key_name"></a> [instance\_encryption\_key\_name](#output\_instance\_encryption\_key\_name) | The service account email address assigned to the master instance |
+| <a name="output_instance_local_infile_skip_show_database_value"></a> [instance\_local\_infile\_skip\_show\_database\_value](#output\_instance\_local\_infile\_skip\_show\_database\_value) | The service account email address assigned to the master instance |
+| <a name="output_instance_name"></a> [instance\_name](#output\_instance\_name) | The instance name for the master instance |
+| <a name="output_instance_self_link"></a> [instance\_self\_link](#output\_instance\_self\_link) | The URI of the master instance |
+| <a name="output_instance_service_account_email_address"></a> [instance\_service\_account\_email\_address](#output\_instance\_service\_account\_email\_address) | The service account email address assigned to the master instance |
+| <a name="output_instance_ssl_cert_name"></a> [instance\_ssl\_cert\_name](#output\_instance\_ssl\_cert\_name) | The service account email address assigned to the master instance |
+| <a name="output_private_address"></a> [private\_address](#output\_private\_address) | The private IP address assigned for the master instance |
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -136,18 +159,3 @@ module "sql_cluster" {
 | <a name="input_tier"></a> [tier](#input\_tier) | The tier for the master instance. | `string` | `"db-n1-standard-1"` | no |
 | <a name="input_update_timeout"></a> [update\_timeout](#input\_update\_timeout) | The optional timout that is applied to limit long database updates. | `string` | `"30m"` | no |
 | <a name="input_user_host"></a> [user\_host](#input\_user\_host) | The host for the default user | `string` | `"%"` | no |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| <a name="output_Iam_Cloud_Sql_sauser"></a> [Iam\_Cloud\_Sql\_sauser](#output\_Iam\_Cloud\_Sql\_sauser) | The service account email address assigned to the master instance |
-| <a name="output_Iam_Cloud_Sql_user"></a> [Iam\_Cloud\_Sql\_user](#output\_Iam\_Cloud\_Sql\_user) | The service account email address assigned to the master instance |
-| <a name="output_instance_connection_name"></a> [instance\_connection\_name](#output\_instance\_connection\_name) | The connection name of the master instance to be used in connection strings |
-| <a name="output_instance_encryption_key_name"></a> [instance\_encryption\_key\_name](#output\_instance\_encryption\_key\_name) | The service account email address assigned to the master instance |
-| <a name="output_instance_local_infile_skip_show_database_value"></a> [instance\_local\_infile\_skip\_show\_database\_value](#output\_instance\_local\_infile\_skip\_show\_database\_value) | The service account email address assigned to the master instance |
-| <a name="output_instance_name"></a> [instance\_name](#output\_instance\_name) | The instance name for the master instance |
-| <a name="output_instance_self_link"></a> [instance\_self\_link](#output\_instance\_self\_link) | The URI of the master instance |
-| <a name="output_instance_service_account_email_address"></a> [instance\_service\_account\_email\_address](#output\_instance\_service\_account\_email\_address) | The service account email address assigned to the master instance |
-| <a name="output_instance_ssl_cert_name"></a> [instance\_ssl\_cert\_name](#output\_instance\_ssl\_cert\_name) | The service account email address assigned to the master instance |
-| <a name="output_private_address"></a> [private\_address](#output\_private\_address) | The private IP address assigned for the master instance |
