@@ -1,5 +1,5 @@
 provider "google" {
-
+  credentials = file("/Users/n432213/desktop/digital-dfp-dev-cred.json")
   project = var.project_id
   region  = var.region
   zone    = var.zone
@@ -7,6 +7,7 @@ provider "google" {
 }
 
 provider "google-beta" {
+  credentials = file("/Users/n432213/desktop/digital-dfp-dev-cred.json")
   project = var.project_id
   region  = var.region
   zone    = var.zone

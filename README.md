@@ -72,10 +72,10 @@ module "sql_cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 4.5.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 4.5.0 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 ## Requirements
 
 | Name | Version |
@@ -97,7 +97,7 @@ module "sql_cluster" {
 | [google_sql_user.users](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_user) | resource |
 | [null_resource.module_depends_on](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [random_id.suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
-| [google_compute_network.mysql_network](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_network) | data source |
+| [google_compute_network.postgresql_network](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/compute_network) | data source |
 ## Outputs
 
 | Name | Description |
@@ -106,7 +106,7 @@ module "sql_cluster" {
 | <a name="output_Iam_Cloud_Sql_user"></a> [Iam\_Cloud\_Sql\_user](#output\_Iam\_Cloud\_Sql\_user) | The service account email address assigned to the master instance |
 | <a name="output_instance_connection_name"></a> [instance\_connection\_name](#output\_instance\_connection\_name) | The connection name of the master instance to be used in connection strings |
 | <a name="output_instance_encryption_key_name"></a> [instance\_encryption\_key\_name](#output\_instance\_encryption\_key\_name) | The service account email address assigned to the master instance |
-| <a name="output_instance_local_infile_skip_show_database_value"></a> [instance\_local\_infile\_skip\_show\_database\_value](#output\_instance\_local\_infile\_skip\_show\_database\_value) | The service account email address assigned to the master instance |
+| <a name="output_instance_logging_monitoring_database_flags"></a> [instance\_logging\_monitoring\_database\_flags](#output\_instance\_logging\_monitoring\_database\_flags) | The service account email address assigned to the master instance |
 | <a name="output_instance_name"></a> [instance\_name](#output\_instance\_name) | The instance name for the master instance |
 | <a name="output_instance_self_link"></a> [instance\_self\_link](#output\_instance\_self\_link) | The URI of the master instance |
 | <a name="output_instance_service_account_email_address"></a> [instance\_service\_account\_email\_address](#output\_instance\_service\_account\_email\_address) | The service account email address assigned to the master instance |
@@ -132,7 +132,7 @@ module "sql_cluster" {
 | <a name="input_activation_policy"></a> [activation\_policy](#input\_activation\_policy) | The activation policy for the master instance. Can be either `ALWAYS`, `NEVER` or `ON_DEMAND`. | `string` | `"ALWAYS"` | no |
 | <a name="input_additional_databases"></a> [additional\_databases](#input\_additional\_databases) | A list of databases to be created in your cluster | <pre>list(object({<br>    name      = string<br>    charset   = string<br>    collation = string<br>  }))</pre> | `[]` | no |
 | <a name="input_additional_users"></a> [additional\_users](#input\_additional\_users) | A list of users to be created in your cluster | <pre>list(object({<br>    name     = string<br>    password = string<br>    host     = string<br>  }))</pre> | `[]` | no |
-| <a name="input_availability_type"></a> [availability\_type](#input\_availability\_type) | The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`. | `string` | `"ZONAL"` | no |
+| <a name="input_availability_type"></a> [availability\_type](#input\_availability\_type) | The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`. | `string` | `"REGIONAL"` | no |
 | <a name="input_backup_configuration"></a> [backup\_configuration](#input\_backup\_configuration) | The backup\_configuration settings subblock for the database setings | <pre>object({<br>    binary_log_enabled             = bool<br>    enabled                        = bool<br>    start_time                     = string<br>    location                       = string<br>    transaction_log_retention_days = string<br>    retained_backups               = number<br>    retention_unit                 = string<br>  })</pre> | <pre>{<br>  "binary_log_enabled": true,<br>  "enabled": true,<br>  "location": null,<br>  "retained_backups": null,<br>  "retention_unit": null,<br>  "start_time": "00:30",<br>  "transaction_log_retention_days": null<br>}</pre> | no |
 | <a name="input_cloud_IAM_SAusers"></a> [cloud\_IAM\_SAusers](#input\_cloud\_IAM\_SAusers) | A list of users to be created in your cluster | <pre>list(object({<br>    name     = string<br>  }))</pre> | `[]` | no |
 | <a name="input_cloud_IAM_users"></a> [cloud\_IAM\_users](#input\_cloud\_IAM\_users) | A list of users to be created in your cluster | <pre>list(object({<br>    name     = string<br>  }))</pre> | `[]` | no |
@@ -156,6 +156,5 @@ module "sql_cluster" {
 | <a name="input_read_replica_deletion_protection"></a> [read\_replica\_deletion\_protection](#input\_read\_replica\_deletion\_protection) | Used to block Terraform from deleting replica SQL Instances. | `bool` | `false` | no |
 | <a name="input_read_replica_name_suffix"></a> [read\_replica\_name\_suffix](#input\_read\_replica\_name\_suffix) | The optional suffix to add to the read instance name | `string` | `""` | no |
 | <a name="input_read_replicas"></a> [read\_replicas](#input\_read\_replicas) | List of read replicas to create | <pre>list(object({<br>    name            = string<br>    zone            = string<br><br>  }))</pre> | `[]` | no |
-| <a name="input_tier"></a> [tier](#input\_tier) | The tier for the master instance. | `string` | `"db-n1-standard-1"` | no |
+| <a name="input_tier"></a> [tier](#input\_tier) | The tier for the master instance. | `string` | `"db-f1-micro"` | no |
 | <a name="input_update_timeout"></a> [update\_timeout](#input\_update\_timeout) | The optional timout that is applied to limit long database updates. | `string` | `"30m"` | no |
-| <a name="input_user_host"></a> [user\_host](#input\_user\_host) | The host for the default user | `string` | `"%"` | no |

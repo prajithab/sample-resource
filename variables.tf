@@ -29,7 +29,7 @@ variable "region" {
 variable "tier" {
   description = "The tier for the master instance."
   type        = string
-  default     = "db-n1-standard-1"
+  default     ="db-f1-micro"
 }
 
 variable "zone" {
@@ -46,7 +46,7 @@ variable "activation_policy" {
 variable "availability_type" {
   description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
   type        = string
-  default     = "ZONAL"
+  default     = "REGIONAL"
 }
 
 variable "disk_autoresize" {
@@ -188,11 +188,13 @@ variable "user_name" {
   type        = string
 }
 
+/*
 variable "user_host" {
   description = "The host for the default user"
   type        = string
   default     = "%"
 }
+*/
 
 variable "user_password" {
   description = "The password for the default user. If not set, a random one will be generated and available in the generated_user_password output variable."

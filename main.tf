@@ -2,7 +2,7 @@ terraform {
 	required_version = ">0.13.0"
 }
 
-data "google_compute_network" "mysql_network" {
+data "google_compute_network" "postgresql_network" {
   name    = var.vpcnetwork
   project = var.vpcproject
 }
@@ -10,7 +10,7 @@ data "google_compute_network" "mysql_network" {
 locals {
   master_instance_name = var.random_instance_name ? "${var.name}-${random_id.suffix[0].hex}" : var.name
 
-  default_user_host        = "%"
+  #default_user_host        = "%"
   ip_configuration_enabled = true
 
   replicas = {
@@ -22,8 +22,10 @@ locals {
   IAM_users   = { for u in var.cloud_IAM_users : u.name => u }
   IAM_sausers = { for u in var.cloud_IAM_SAusers : u.name => u }
 
-  // HA method using REGIONAL availability_type requires binary logs to be enabled
-  binary_log_enabled = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "binary_log_enabled", null)
+  // HA method using REGIONAL availability_type requires binary logs to be enabled for mysql
+  //binary_log_enabled = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "binary_log_enabled", null)
+  //binary_lod_enabled needs to marked as false for postgresql
+  binary_log_enabled = false
   backups_enabled    = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "enabled", null)
 
   retained_backups = lookup(var.backup_configuration, "retained_backups", null)
@@ -46,18 +48,52 @@ resource "google_sql_database_instance" "default" {
   encryption_key_name = var.encryption_key_name
 
   settings {
-    database_flags {
-      name  = "local_infile"
+
+     database_flags {
+      name  = "autovacuum"
       value = "off"
     }
+ 
     database_flags {
-      name  = "skip_show_database"
+      name  = "log_min_duration_statement"
+      value = -1
+    }
+
+    database_flags {
+      name  = "log_checkpoints"
       value = "on"
     }
+    
     database_flags {
-      name  = "cloudsql_iam_authentication"
+      name  = "log_connections"
       value = "on"
     }
+
+    database_flags {
+      name  = "log_disconnections"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_lock_waits"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_min_messages"
+      value = "warning"
+    }
+
+    database_flags {
+      name  = "log_temp_files"
+      value = 0
+    }
+
+     database_flags {
+      name  = "cloudsql.iam_authentication"
+      value = "on"
+    }
+
     tier              = var.tier
     activation_policy = var.activation_policy
     availability_type = var.availability_type
@@ -81,7 +117,7 @@ resource "google_sql_database_instance" "default" {
     }
     ip_configuration {
       ipv4_enabled    = false
-      private_network = data.google_compute_network.mysql_network.id
+      private_network = data.google_compute_network.postgresql_network.id
       require_ssl     = true
 
       #        dynamic "authorized_networks" {
@@ -158,7 +194,7 @@ resource "google_sql_user" "default" {
   name       = var.user_name
   project    = var.project_id
   instance   = google_sql_database_instance.default.name
-  host       = var.user_host
+ #host       = var.user_host
   password   = var.user_password
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
@@ -168,7 +204,7 @@ resource "google_sql_user" "additional_users" {
   project    = var.project_id
   name       = each.value.name
   password   = lookup(each.value, "password")
-  host       = lookup(each.value, "host", var.user_host)
+  #host       = lookup(each.value, "host", var.user_host)
   instance   = google_sql_database_instance.default.name
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
@@ -212,7 +248,7 @@ resource "google_sql_database_instance" "replicas" {
 
     ip_configuration {
       ipv4_enabled    = false
-      private_network = data.google_compute_network.mysql_network.id
+      private_network = data.google_compute_network.postgresql_network.id
       require_ssl     = true
 
       #        dynamic "authorized_networks" {

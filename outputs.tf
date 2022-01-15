@@ -23,7 +23,7 @@ output "instance_service_account_email_address" {
   description = "The service account email address assigned to the master instance"
 }
 
-output "instance_local_infile_skip_show_database_value" {
+output "instance_logging_monitoring_database_flags" {
   value       = [for r in google_sql_database_instance.default.settings : r.database_flags]
   description = "The service account email address assigned to the master instance"
 }
