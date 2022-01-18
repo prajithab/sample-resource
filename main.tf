@@ -1,5 +1,6 @@
+
 terraform {
-	required_version = ">0.13.0"
+  required_version = ">1.0.0"
 }
 
 data "google_compute_network" "postgresql_network" {

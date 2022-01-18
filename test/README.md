@@ -33,7 +33,7 @@ go mod tidy
 
 ### Run test
 ```
-go test timeout=30m
+go test -timeout 40m
 ```
 
 
