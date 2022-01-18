@@ -1,4 +1,4 @@
-# terraform-google-sql
+# terraform-google-cloudsql-postgresql
 
 ## Ownership
 
@@ -18,7 +18,7 @@ terraform-docs -c .config/.tfdocs-config.yml . > README.md
 
 ## Scope
 
-terraform-google-sql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
+terraform-google-cloudsql-postgresql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
 This module consists of the following submodules:
 
 - [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-mysql)
@@ -36,10 +36,6 @@ and follows these guidelines:
 [Module Development Practices](https://cvsdigital.atlassian.net/wiki/spaces/~44381436/pages/2149221346/Module+Development+Practices)
 
 [HashiCorp Standard Module Structure](https://www.terraform.io/docs/language/modules/develop/structure.html)
-
-## Compatibility
-This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+.
-If you find incompatibilities using Terraform `>=0.13`, please open an issue.
 
 ## Modules
 

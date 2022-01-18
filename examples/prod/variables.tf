@@ -95,8 +95,8 @@ variable "tier" {
 variable "read_replicas" {
   description = "List of read replicas to create"
   type = list(object({
-    name            = string
-    zone            = string
+    name = string
+    zone = string
   }))
   default = []
 }
@@ -130,7 +130,7 @@ variable "additional_users" {
 variable "cloud_IAM_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
+    name = string
   }))
   default = []
 }
@@ -138,7 +138,7 @@ variable "cloud_IAM_users" {
 variable "cloud_IAM_SAusers" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
+    name = string
   }))
   default = []
 }

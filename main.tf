@@ -1,6 +1,28 @@
 terraform {
-	required_version = ">0.13.0"
+  required_providers {
+    google = {
+      source = "hashicorp/google"
+    }
+    google-beta = {
+      source = "hashicorp/google-beta"
+    }
+  }
+  required_version = ">1.0.0"
 }
+
+
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
 
 data "google_compute_network" "postgresql_network" {
   name    = var.vpcnetwork
@@ -49,11 +71,11 @@ resource "google_sql_database_instance" "default" {
 
   settings {
 
-     database_flags {
+    database_flags {
       name  = "autovacuum"
       value = "off"
     }
- 
+
     database_flags {
       name  = "log_min_duration_statement"
       value = -1
@@ -63,7 +85,7 @@ resource "google_sql_database_instance" "default" {
       name  = "log_checkpoints"
       value = "on"
     }
-    
+
     database_flags {
       name  = "log_connections"
       value = "on"
@@ -89,7 +111,7 @@ resource "google_sql_database_instance" "default" {
       value = 0
     }
 
-     database_flags {
+    database_flags {
       name  = "cloudsql.iam_authentication"
       value = "on"
     }
@@ -190,20 +212,20 @@ resource "google_sql_database" "additional_databases" {
 }
 
 resource "google_sql_user" "default" {
-  count      = var.enable_default_user ? 1 : 0
-  name       = var.user_name
-  project    = var.project_id
-  instance   = google_sql_database_instance.default.name
- #host       = var.user_host
+  count    = var.enable_default_user ? 1 : 0
+  name     = var.user_name
+  project  = var.project_id
+  instance = google_sql_database_instance.default.name
+  #host       = var.user_host
   password   = var.user_password
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
 
 resource "google_sql_user" "additional_users" {
-  for_each   = local.users
-  project    = var.project_id
-  name       = each.value.name
-  password   = lookup(each.value, "password")
+  for_each = local.users
+  project  = var.project_id
+  name     = each.value.name
+  password = lookup(each.value, "password")
   #host       = lookup(each.value, "host", var.user_host)
   instance   = google_sql_database_instance.default.name
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]

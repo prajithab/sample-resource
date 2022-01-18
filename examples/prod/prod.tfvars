@@ -11,33 +11,33 @@ user_password       = "-350Mx"
 database_version    = "POSTGRES_13"
 encryption_key_name = null
 client_cert_name    = "clientapictecert"
-user_labels         = {
+user_labels = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
   "dataclassification" = "pegasus"
 }
 
 #optional Variables
-disk_size                       = 10
-tier                            = "db-n1-standard-16"
-read_replicas                   = [
+disk_size = 10
+tier      = "db-n1-standard-16"
+read_replicas = [
   {
     "name" = "-pega1"
     zone   = "us-east4-a"
-  }, {
+    }, {
     "name" = "-pega2"
     zone   = "us-east4-b"
   }
 ]
-read_replica_name_suffix        = "1"
-additional_databases            = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "utf8_general_ci" }]
+read_replica_name_suffix = "1"
+additional_databases     = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "utf8_general_ci" }]
 #additional_users                = [
 #  { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" },
 #  { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
 #]
-cloud_IAM_SAusers                 = [
+cloud_IAM_SAusers = [
   { "name" = "k8s-infrastructure-temporary@digital-dfp-dev.iam.gserviceaccount.com" }
 ]
-cloud_IAM_users                 = [
+cloud_IAM_users = [
   { "name" = "reddys10@aetna.com" }
 ]
 create_timeout                  = "30m"
@@ -47,7 +47,7 @@ availability_type               = "REGIONAL"
 maintenance_window_day          = 3
 maintenance_window_hour         = 16
 maintenance_window_update_track = "canary"
-backup_configuration            = {
+backup_configuration = {
   binary_log_enabled             = true
   enabled                        = true
   start_time                     = "00:30"

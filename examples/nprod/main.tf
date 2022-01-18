@@ -1,18 +1,3 @@
-provider "google" {
- #credentials = file("../../credentials.json")
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
-  version = "~> 3.86.0"
-}
-
-provider "google-beta" {
- # credentials = file("../../credentials.json")
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
-  version = "~> 3.86.0-beta.1"
-}
 
 module "sql_cluster" {
   source = "../../"
