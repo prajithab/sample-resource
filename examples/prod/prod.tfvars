@@ -1,14 +1,14 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-sprint6-postgresql-prod-01-8"
+name                = "pegasus-poc-sprint6-postgresql-prod-01-9"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
 db_name             = "POSTGRESQLDB"
 user_name           = "clientapi"
 user_password       = "-350Mx"
-database_version    = "POSTGRES_13"
+database_version    = "POSTGRES_14"
 encryption_key_name = null
 client_cert_name    = "clientapictecert"
 user_labels         = {
