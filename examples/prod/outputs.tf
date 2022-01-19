@@ -32,8 +32,3 @@ output "SQL_encryption_key_name" {
   value       = module.sql_cluster.instance_encryption_key_name
   description = "The Encryption key assigned to SQL db"
 }
-
-#output "instance_replica_ssl_cert_name" {
-#  value       = module.sql_cluster.instance_replica_ssl_cert_name
-#  description = "The service account email address assigned to the master instance"
-#}

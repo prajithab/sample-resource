@@ -89,7 +89,8 @@ variable "disk_size" {
 variable "tier" {
   description = "The tier for the master instance."
   type        = string
-  default     = ""
+  //default     = "db-f1-micro"
+  default ="db-n1-standard-1"
 }
 
 variable "read_replicas" {
