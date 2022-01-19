@@ -21,7 +21,7 @@ terraform-docs -c .config/.tfdocs-config.yml . > README.md
 terraform-google-cloudsql-postgresql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
 This module consists of the following submodules:
 
-- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-mysql)
+- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-postgresql)
 
 See more details in the example folders README.
 

@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-gita-postresql1-7"
+name                = "pegasus-poc-gita-postresql1-29"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
@@ -15,3 +15,5 @@ user_labels         = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
   "dataclassification" = "pegasus"
 }
+deletion_protection = "true"
+read_replica_deletion_protection = "true"

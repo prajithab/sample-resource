@@ -22,7 +22,7 @@ terraform-docs -c .config/.tfdocs-config.yml . > README.md
 terraform-google-cloudsql-postgresql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
 This module consists of the following submodules:
 
-- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-mysql)
+- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-postgresql)
 
 See more details in the example folders README.
 
@@ -68,10 +68,10 @@ module "sql_cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_google"></a> [google](#provider\_google) | 4.5.0 |
-| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | 4.5.0 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.1.0 |
-| <a name="provider_random"></a> [random](#provider\_random) | 3.1.0 |
+| <a name="provider_google"></a> [google](#provider\_google) | n/a |
+| <a name="provider_google-beta"></a> [google-beta](#provider\_google-beta) | n/a |
+| <a name="provider_null"></a> [null](#provider\_null) | n/a |
+| <a name="provider_random"></a> [random](#provider\_random) | n/a |
 ## Requirements
 
 | Name | Version |
@@ -137,7 +137,7 @@ module "sql_cluster" {
 | <a name="input_db_charset"></a> [db\_charset](#input\_db\_charset) | The charset for the default database | `string` | `""` | no |
 | <a name="input_db_collation"></a> [db\_collation](#input\_db\_collation) | The collation for the default database. Example: 'utf8\_general\_ci' | `string` | `""` | no |
 | <a name="input_delete_timeout"></a> [delete\_timeout](#input\_delete\_timeout) | The optional timout that is applied to limit long database deletes. | `string` | `"30m"` | no |
-| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Used to block Terraform from deleting a SQL Instance. | `bool` | `false` | no |
+| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Used to block Terraform from deleting a SQL Instance. | `bool` | `true` | no |
 | <a name="input_disk_autoresize"></a> [disk\_autoresize](#input\_disk\_autoresize) | Configuration to increase storage size | `bool` | `true` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | The disk size for the master instance | `number` | `10` | no |
 | <a name="input_disk_type"></a> [disk\_type](#input\_disk\_type) | The disk type for the master instance. | `string` | `"PD_SSD"` | no |
@@ -149,7 +149,7 @@ module "sql_cluster" {
 | <a name="input_module_depends_on"></a> [module\_depends\_on](#input\_module\_depends\_on) | List of modules or resources this module depends on. | `list(any)` | `[]` | no |
 | <a name="input_pricing_plan"></a> [pricing\_plan](#input\_pricing\_plan) | The pricing plan for the master instance. | `string` | `"PER_USE"` | no |
 | <a name="input_random_instance_name"></a> [random\_instance\_name](#input\_random\_instance\_name) | Sets random suffix at the end of the Cloud SQL resource name | `bool` | `false` | no |
-| <a name="input_read_replica_deletion_protection"></a> [read\_replica\_deletion\_protection](#input\_read\_replica\_deletion\_protection) | Used to block Terraform from deleting replica SQL Instances. | `bool` | `false` | no |
+| <a name="input_read_replica_deletion_protection"></a> [read\_replica\_deletion\_protection](#input\_read\_replica\_deletion\_protection) | Used to block Terraform from deleting replica SQL Instances. | `bool` | `true` | no |
 | <a name="input_read_replica_name_suffix"></a> [read\_replica\_name\_suffix](#input\_read\_replica\_name\_suffix) | The optional suffix to add to the read instance name | `string` | `""` | no |
 | <a name="input_read_replicas"></a> [read\_replicas](#input\_read\_replicas) | List of read replicas to create | <pre>list(object({<br>    name = string<br>    zone = string<br><br>  }))</pre> | `[]` | no |
 | <a name="input_tier"></a> [tier](#input\_tier) | The tier for the master instance. | `string` | `"db-f1-micro"` | no |

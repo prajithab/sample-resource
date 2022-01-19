@@ -185,6 +185,18 @@ variable "maintenance_window_update_track" {
   default     = ""
 }
 
+variable "deletion_protection" {
+  description = "Used to block Terraform from deleting a SQL Instance."
+  type        = bool
+  default     = true
+}
+
+variable "read_replica_deletion_protection" {
+  description = "Used to block Terraform from deleting replica SQL Instances."
+  type        = bool
+  default     = true
+}
+
 variable "backup_configuration" {
   description = "The backup_configuration settings subblock for the database setings"
   type = object({
