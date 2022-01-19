@@ -3,6 +3,19 @@ terraform {
   required_version = ">1.0.0"
 }
 
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+
 data "google_compute_network" "postgresql_network" {
   name    = var.vpcnetwork
   project = var.vpcproject
