@@ -1,12 +1,12 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-gt-postgresql-0"
+name                = "pegasus-poc-gt-postgresql-4"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
 db_name             = "POSTGRESQLDB"
-user_name           = "clientapi"
+user_name           = "postgres"
 user_password       = "-350Mx"
 database_version    = "POSTGRES_14"
 encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
@@ -15,3 +15,6 @@ user_labels         = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
   "dataclassification" = "pegasus"
 }
+
+#Optional Variables
+deletion_protection = false

@@ -1,12 +1,12 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-sprint6-postgresql-prod-01-9"
+name                = "pegasus-poc-sprint6-postgresql-prod-gt-1"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
 db_name             = "POSTGRESQLDB"
-user_name           = "clientapi"
+user_name           = "postgres"
 user_password       = "-350Mx"
 database_version    = "POSTGRES_14"
 encryption_key_name = null
@@ -23,8 +23,8 @@ read_replicas                   = [
   {
     "name" = "-pega1"
     zone   = "us-east4-a"
-  }, {
-    "name" = "-pega2"
+  } , {
+     "name" = "-pega2"
     zone   = "us-east4-b"
   }
 ]
@@ -35,9 +35,8 @@ additional_databases            = [{ "name" = "add-pega", "charset" = "utf8", "c
 #  { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
 #]
 cloud_IAM_SAusers                 = [
-  { "name" = "pegasus-poc-sa@digital-dfp-dev.iam"}
-  //.gserviceaccount.com"}
-  //k8s-infrastructure-temporary@digital-dfp-dev.iam.gserviceaccount.com" }
+  { "name" = "k8s-infrastructure-temporary"}
+  
 ]
 cloud_IAM_users                 = [
   { "name" = "samalg@aetna.com" }

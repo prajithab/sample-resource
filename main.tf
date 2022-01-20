@@ -208,7 +208,7 @@ resource "google_sql_user" "default" {
   name       = var.user_name
   project    = var.project_id
   instance   = google_sql_database_instance.default.name
- #host       = var.user_host
+  #host       = var.user_host
   password   = var.user_password
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
@@ -218,7 +218,7 @@ resource "google_sql_user" "additional_users" {
   project    = var.project_id
   name       = each.value.name
   password   = lookup(each.value, "password")
-  #host       = lookup(each.value, "host", var.user_host)
+  host       = lookup(each.value, "host", var.user_host)
   instance   = google_sql_database_instance.default.name
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
@@ -257,6 +257,51 @@ resource "google_sql_database_instance" "replicas" {
   }
 
   settings {
+    database_flags {
+      name  = "autovacuum"
+      value = "off"
+    }
+ 
+    database_flags {
+      name  = "log_min_duration_statement"
+      value = -1
+    }
+
+    database_flags {
+      name  = "log_checkpoints"
+      value = "on"
+    }
+    
+    database_flags {
+      name  = "log_connections"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_disconnections"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_lock_waits"
+      value = "on"
+    }
+
+    database_flags {
+      name  = "log_min_messages"
+      value = "warning"
+    }
+
+    database_flags {
+      name  = "log_temp_files"
+      value = 0
+    }
+
+     database_flags {
+      name  = "cloudsql.iam_authentication"
+      value = "on"
+    }
+
     tier              = lookup(each.value, "tier", var.tier)
     activation_policy = "ALWAYS"
 
@@ -316,8 +361,11 @@ resource "google_sql_ssl_cert" "client_cert" {
   instance    = google_sql_database_instance.default.name
 }
 
+//Please generate the client ssl certificate separately as per best practices
+/*
 resource "google_sql_ssl_cert" "replica_client_cert" {
   for_each    = local.replicas
   common_name = var.client_cert_name
   instance    = "${local.master_instance_name}-replica${var.read_replica_name_suffix}${each.value.name}"
 }
+*/

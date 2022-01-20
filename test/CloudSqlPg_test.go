@@ -3,21 +3,22 @@ package test
 import (
 	"context"
 	// 	"fmt"
+	"os"
+	"strings"
+	"testing"
+
 	"github.com/gruntwork-io/terratest/modules/terraform"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/oauth2/google"
 	sqladmin "google.golang.org/api/sqladmin/v1beta4"
-	"os"
-	"strings"
-	"testing"
 )
 
 //Global Variables
 var instance_name string
 var private_address string
 var SQL_encryption_key_name string
-var TFPath = "../examples/ephemeral-testing/"
-var TFVarsFile = "terratest.tfvars"
+var TFPath = "../examples/prod/"
+var TFVarsFile = "prod.tfvars"
 
 func ListInstances(projectId string) ([]*sqladmin.DatabaseInstance, error) {
 	ctx := context.Background()
