@@ -17,8 +17,8 @@ import (
 var instance_name string
 var private_address string
 var SQL_encryption_key_name string
-var TFPath = "../examples/prod/"
-var TFVarsFile = "prod.tfvars"
+var TFPath = "../examples/ephemeral-testing/"
+var TFVarsFile = "terratest.tfvars"
 
 func ListInstances(projectId string) ([]*sqladmin.DatabaseInstance, error) {
 	ctx := context.Background()

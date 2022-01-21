@@ -168,7 +168,7 @@ variable "vpcproject" {
 }
 
 variable "db_collation" {
-  description = "The collation for the default database. Example: 'utf8_general_ci'"
+  description = "The collation for the default database. Example: 'en_US.UTF8'"
   type        = string
   default     = ""
 }
@@ -186,6 +186,7 @@ variable "additional_databases" {
 variable "user_name" {
   description = "The name of the default user"
   type        = string
+  default     = "postgres"
 }
 
 
@@ -274,11 +275,14 @@ variable "enable_default_db" {
   default     = true
 }
 
+//  Google cloud creates a default user named 'postgres' irrespective of the below variable set to true or false.
+/*
 variable "enable_default_user" {
   description = "Enable or disable the creation of the default user"
   type        = bool
-  default     = true
+  default     = false
 }
+*/
 
 #variable "enable_client_ssl" {
 #  description = "Enable or disable the creation of the client ssl"

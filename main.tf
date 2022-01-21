@@ -204,7 +204,7 @@ resource "google_sql_database" "additional_databases" {
 }
 
 resource "google_sql_user" "default" {
-  count      = var.enable_default_user ? 1 : 0
+  //count      = var.enable_default_user ? 1 : 0
   name       = var.user_name
   project    = var.project_id
   instance   = google_sql_database_instance.default.name
@@ -218,7 +218,7 @@ resource "google_sql_user" "additional_users" {
   project    = var.project_id
   name       = each.value.name
   password   = lookup(each.value, "password")
-  host       = lookup(each.value, "host", var.user_host)
+  #host       = lookup(each.value, "host", var.user_host)
   instance   = google_sql_database_instance.default.name
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
 }
