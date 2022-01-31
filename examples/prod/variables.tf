@@ -44,7 +44,7 @@ variable "db_name" {
 variable "user_name" {
   description = "The name of the default user"
   type        = string
-  default     = "default"
+  default     = "postgres"
 }
 
 variable "user_password" {
@@ -89,7 +89,8 @@ variable "disk_size" {
 variable "tier" {
   description = "The tier for the master instance."
   type        = string
-  default     = ""
+  //default     = "db-f1-micro"
+  default ="db-n1-standard-1"
 }
 
 variable "read_replicas" {
