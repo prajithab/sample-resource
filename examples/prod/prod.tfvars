@@ -1,14 +1,14 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-sprint6-postgresql-prod0-0"
+name                = "pegasus-poc-sprint6-postgresql-prod00-val"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
 db_name             = "POSTGRESQLDB"
 user_password       = "-350Mx"
 database_version    = "POSTGRES_14"
-encryption_key_name = null
+encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
 client_cert_name    = "clientapictecert"
 user_labels = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
@@ -44,7 +44,7 @@ cloud_IAM_users                 = [
 create_timeout                  = "30m"
 update_timeout                  = "30m"
 module_depends_on               = ["pegasus"]
-availability_type               = "REGIONAL"
+availability_type               = "ZONAL"
 maintenance_window_day          = 3
 maintenance_window_hour         = 16
 maintenance_window_update_track = "canary"
