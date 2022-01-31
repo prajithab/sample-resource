@@ -89,8 +89,8 @@ variable "disk_size" {
 variable "tier" {
   description = "The tier for the master instance."
   type        = string
-  //default     = "db-f1-micro"
-  default ="db-n1-standard-1"
+  default     = "db-f1-micro"
+  
 }
 
 variable "read_replicas" {
@@ -165,7 +165,11 @@ variable "module_depends_on" {
 variable "availability_type" {
   description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
   type        = string
-  default     = "REGIONAL"
+  validation {
+    condition = var.availability_type == "REGIONAL" || var.availability_type == "ZONAL"
+    error_message = "The availability type for the master instance must be set to either `REGIONAL` or `ZONAL`."
+  }
+  default     = "ZONAL"
 }
 
 variable "maintenance_window_day" {
@@ -183,7 +187,11 @@ variable "maintenance_window_hour" {
 variable "maintenance_window_update_track" {
   description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
   type        = string
-  default     = ""
+  validation {
+    condition     = var.maintenance_window_update_track == "canary" || var.maintenance_window_update_track == "stable"
+    error_message = "The update track of maintenance window for the master instance maintenance must be set to `canary` or `stable`."
+  }
+  default     = "canary"
 }
 
 variable "backup_configuration" {
@@ -198,7 +206,7 @@ variable "backup_configuration" {
     retention_unit                 = string
   })
   default = {
-    binary_log_enabled             = true
+    binary_log_enabled             = false
     enabled                        = true
     start_time                     = "00:30"
     location                       = null

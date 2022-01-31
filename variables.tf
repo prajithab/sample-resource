@@ -40,13 +40,21 @@ variable "zone" {
 variable "activation_policy" {
   description = "The activation policy for the master instance. Can be either `ALWAYS`, `NEVER` or `ON_DEMAND`."
   type        = string
+  validation {
+    condition = var.activation_policy == "ALWAYS" || var.activation_policy == "NEVER" || var.activation_policy == "ON_DEMAND"
+    error_message = "The activation policy for the master instance must be set to  `ALWAYS` or `NEVER` or `ON_DEMAND`."
+  }
   default     = "ALWAYS"
 }
 
 variable "availability_type" {
   description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
   type        = string
-  default     = "REGIONAL"
+  validation {
+    condition = var.availability_type == "REGIONAL" || var.availability_type == "ZONAL"
+    error_message = "The availability type for the master instance must be set to either `REGIONAL` or `ZONAL`."
+  }
+  default     = "ZONAL"
 }
 
 variable "disk_autoresize" {
@@ -70,6 +78,10 @@ variable "disk_type" {
 variable "pricing_plan" {
   description = "The pricing plan for the master instance."
   type        = string
+  validation {
+    condition     = var.pricing_plan == "PER_USE"
+    error_message = "Pricing plan for the instance can only be PER_USE."
+  } 
   default     = "PER_USE"
 }
 
@@ -88,6 +100,10 @@ variable "maintenance_window_hour" {
 variable "maintenance_window_update_track" {
   description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
   type        = string
+  validation {
+    condition     = var.maintenance_window_update_track == "canary" || var.maintenance_window_update_track == "stable"
+    error_message = "The update track of maintenance window for the master instance maintenance must be set to `canary` or `stable`."
+  }
   default     = "canary"
 }
 
@@ -118,7 +134,7 @@ variable "backup_configuration" {
     retention_unit                 = string
   })
   default = {
-    binary_log_enabled             = true
+    binary_log_enabled             = false
     enabled                        = true
     start_time                     = "00:30"
     location                       = null
@@ -249,6 +265,11 @@ variable "delete_timeout" {
 variable "encryption_key_name" {
   description = "The full path to the encryption key used for the CMEK disk encryption"
   type        = string
+    validation {
+    condition     = length(var.encryption_key_name) > 4 && contains(split("/", var.encryption_key_name), "keyRings") 
+    //substr(var.image_id, 0, 7) == "projects"
+    error_message = "The encryption_key_name should not be null and must be a valid one, contains\"keyRings\"."
+  }
 }
 
 variable "module_depends_on" {
@@ -293,4 +314,9 @@ variable "enable_default_user" {
 variable "client_cert_name" {
   description = "name for the client certificate"
   type        = string
+  validation {
+    condition     = length(var.client_cert_name) > 0
+    error_message = "The client_cert_name should not be null."
+  }
 }
+

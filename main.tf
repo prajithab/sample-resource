@@ -40,8 +40,11 @@ locals {
   //binary_log_enabled = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "binary_log_enabled", null)
   //binary_lod_enabled needs to marked as false for postgresql
   binary_log_enabled = false
-  backups_enabled    = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "enabled", null)
-
+  
+  //backups_enabled    = var.availability_type == "REGIONAL" ? true : lookup(var.backup_configuration, "enabled", null)
+  
+  //Irrespective of availability_type, backups will be always enabled for an instance.
+  backups_enabled    = true
   retained_backups = lookup(var.backup_configuration, "retained_backups", null)
   retention_unit   = lookup(var.backup_configuration, "retention_unit", null)
 }
