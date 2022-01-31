@@ -10,7 +10,7 @@ user_password       = "-350Mx"
 database_version    = "POSTGRES_14"
 encryption_key_name = null
 client_cert_name    = "clientapictecert"
-user_labels         = {
+user_labels = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
   "dataclassification" = "pegasus"
 }

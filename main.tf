@@ -63,11 +63,11 @@ resource "google_sql_database_instance" "default" {
 
   settings {
 
-     database_flags {
+    database_flags {
       name  = "autovacuum"
       value = "off"
     }
- 
+
     database_flags {
       name  = "log_min_duration_statement"
       value = -1
@@ -77,7 +77,7 @@ resource "google_sql_database_instance" "default" {
       name  = "log_checkpoints"
       value = "on"
     }
-    
+
     database_flags {
       name  = "log_connections"
       value = "on"
@@ -103,7 +103,7 @@ resource "google_sql_database_instance" "default" {
       value = 0
     }
 
-     database_flags {
+    database_flags {
       name  = "cloudsql.iam_authentication"
       value = "on"
     }
@@ -214,10 +214,10 @@ resource "google_sql_user" "default" {
 }
 
 resource "google_sql_user" "additional_users" {
-  for_each   = local.users
-  project    = var.project_id
-  name       = each.value.name
-  password   = lookup(each.value, "password")
+  for_each = local.users
+  project  = var.project_id
+  name     = each.value.name
+  password = lookup(each.value, "password")
   #host       = lookup(each.value, "host", var.user_host)
   instance   = google_sql_database_instance.default.name
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]

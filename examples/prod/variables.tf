@@ -96,8 +96,8 @@ variable "tier" {
 variable "read_replicas" {
   description = "List of read replicas to create"
   type = list(object({
-    name            = string
-    zone            = string
+    name = string
+    zone = string
   }))
   default = []
 }
@@ -131,7 +131,7 @@ variable "additional_users" {
 variable "cloud_IAM_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
+    name = string
   }))
   default = []
 }
@@ -139,7 +139,7 @@ variable "cloud_IAM_users" {
 variable "cloud_IAM_SAusers" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
+    name = string
   }))
   default = []
 }
@@ -184,6 +184,18 @@ variable "maintenance_window_update_track" {
   description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
   type        = string
   default     = ""
+}
+
+variable "deletion_protection" {
+  description = "Used to block Terraform from deleting a SQL Instance."
+  type        = bool
+  default     = true
+}
+
+variable "read_replica_deletion_protection" {
+  description = "Used to block Terraform from deleting replica SQL Instances."
+  type        = bool
+  default     = true
 }
 
 variable "backup_configuration" {
