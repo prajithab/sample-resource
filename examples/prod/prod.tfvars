@@ -10,7 +10,7 @@ user_password       = "-350Mx"
 database_version    = "POSTGRES_14"
 encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
 client_cert_name    = "clientapictecert"
-user_labels         = {
+user_labels = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
   "dataclassification" = "pegasus"
 }

@@ -1,5 +1,5 @@
 
-# terraform-google-sql
+# terraform-google-cloudsql-postgresql
 
 ## Ownership
 
@@ -19,10 +19,10 @@ terraform-docs -c .config/.tfdocs-config.yml . > README.md
 
 ## Scope
 
-terraform-google-sql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
+terraform-google-cloudsql-postgresql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
 This module consists of the following submodules:
 
-- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-mysql)
+- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-postgresql)
 
 See more details in the example folders README.
 
@@ -37,10 +37,6 @@ and follows these guidelines:
 [Module Development Practices](https://cvsdigital.atlassian.net/wiki/spaces/~44381436/pages/2149221346/Module+Development+Practices)
 
 [HashiCorp Standard Module Structure](https://www.terraform.io/docs/language/modules/develop/structure.html)
-
-## Compatibility
-This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+.
-If you find incompatibilities using Terraform `>=0.13`, please open an issue.
 
 ## Modules
 
@@ -80,7 +76,7 @@ module "sql_cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >0.13.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >1.0.0 |
 ## Resources
 
 | Name | Type |
@@ -134,14 +130,14 @@ module "sql_cluster" {
 | <a name="input_additional_users"></a> [additional\_users](#input\_additional\_users) | A list of users to be created in your cluster | <pre>list(object({<br>    name     = string<br>    password = string<br>    host     = string<br>  }))</pre> | `[]` | no |
 | <a name="input_availability_type"></a> [availability\_type](#input\_availability\_type) | The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`. | `string` | `"REGIONAL"` | no |
 | <a name="input_backup_configuration"></a> [backup\_configuration](#input\_backup\_configuration) | The backup\_configuration settings subblock for the database setings | <pre>object({<br>    binary_log_enabled             = bool<br>    enabled                        = bool<br>    start_time                     = string<br>    location                       = string<br>    transaction_log_retention_days = string<br>    retained_backups               = number<br>    retention_unit                 = string<br>  })</pre> | <pre>{<br>  "binary_log_enabled": true,<br>  "enabled": true,<br>  "location": null,<br>  "retained_backups": null,<br>  "retention_unit": null,<br>  "start_time": "00:30",<br>  "transaction_log_retention_days": null<br>}</pre> | no |
-| <a name="input_cloud_IAM_SAusers"></a> [cloud\_IAM\_SAusers](#input\_cloud\_IAM\_SAusers) | A list of users to be created in your cluster | <pre>list(object({<br>    name     = string<br>  }))</pre> | `[]` | no |
-| <a name="input_cloud_IAM_users"></a> [cloud\_IAM\_users](#input\_cloud\_IAM\_users) | A list of users to be created in your cluster | <pre>list(object({<br>    name     = string<br>  }))</pre> | `[]` | no |
+| <a name="input_cloud_IAM_SAusers"></a> [cloud\_IAM\_SAusers](#input\_cloud\_IAM\_SAusers) | A list of users to be created in your cluster | <pre>list(object({<br>    name = string<br>  }))</pre> | `[]` | no |
+| <a name="input_cloud_IAM_users"></a> [cloud\_IAM\_users](#input\_cloud\_IAM\_users) | A list of users to be created in your cluster | <pre>list(object({<br>    name = string<br>  }))</pre> | `[]` | no |
 | <a name="input_create_timeout"></a> [create\_timeout](#input\_create\_timeout) | The optional timout that is applied to limit long database creates. | `string` | `"30m"` | no |
 | <a name="input_database_flags"></a> [database\_flags](#input\_database\_flags) | List of Cloud SQL flags that are applied to the database server. See [more details](https://cloud.google.com/sql/docs/mysql/flags) | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | <a name="input_db_charset"></a> [db\_charset](#input\_db\_charset) | The charset for the default database | `string` | `""` | no |
 | <a name="input_db_collation"></a> [db\_collation](#input\_db\_collation) | The collation for the default database. Example: 'utf8\_general\_ci' | `string` | `""` | no |
 | <a name="input_delete_timeout"></a> [delete\_timeout](#input\_delete\_timeout) | The optional timout that is applied to limit long database deletes. | `string` | `"30m"` | no |
-| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Used to block Terraform from deleting a SQL Instance. | `bool` | `false` | no |
+| <a name="input_deletion_protection"></a> [deletion\_protection](#input\_deletion\_protection) | Used to block Terraform from deleting a SQL Instance. | `bool` | `true` | no |
 | <a name="input_disk_autoresize"></a> [disk\_autoresize](#input\_disk\_autoresize) | Configuration to increase storage size | `bool` | `true` | no |
 | <a name="input_disk_size"></a> [disk\_size](#input\_disk\_size) | The disk size for the master instance | `number` | `10` | no |
 | <a name="input_disk_type"></a> [disk\_type](#input\_disk\_type) | The disk type for the master instance. | `string` | `"PD_SSD"` | no |
@@ -153,8 +149,8 @@ module "sql_cluster" {
 | <a name="input_module_depends_on"></a> [module\_depends\_on](#input\_module\_depends\_on) | List of modules or resources this module depends on. | `list(any)` | `[]` | no |
 | <a name="input_pricing_plan"></a> [pricing\_plan](#input\_pricing\_plan) | The pricing plan for the master instance. | `string` | `"PER_USE"` | no |
 | <a name="input_random_instance_name"></a> [random\_instance\_name](#input\_random\_instance\_name) | Sets random suffix at the end of the Cloud SQL resource name | `bool` | `false` | no |
-| <a name="input_read_replica_deletion_protection"></a> [read\_replica\_deletion\_protection](#input\_read\_replica\_deletion\_protection) | Used to block Terraform from deleting replica SQL Instances. | `bool` | `false` | no |
+| <a name="input_read_replica_deletion_protection"></a> [read\_replica\_deletion\_protection](#input\_read\_replica\_deletion\_protection) | Used to block Terraform from deleting replica SQL Instances. | `bool` | `true` | no |
 | <a name="input_read_replica_name_suffix"></a> [read\_replica\_name\_suffix](#input\_read\_replica\_name\_suffix) | The optional suffix to add to the read instance name | `string` | `""` | no |
-| <a name="input_read_replicas"></a> [read\_replicas](#input\_read\_replicas) | List of read replicas to create | <pre>list(object({<br>    name            = string<br>    zone            = string<br><br>  }))</pre> | `[]` | no |
+| <a name="input_read_replicas"></a> [read\_replicas](#input\_read\_replicas) | List of read replicas to create | <pre>list(object({<br>    name = string<br>    zone = string<br><br>  }))</pre> | `[]` | no |
 | <a name="input_tier"></a> [tier](#input\_tier) | The tier for the master instance. | `string` | `"db-f1-micro"` | no |
 | <a name="input_update_timeout"></a> [update\_timeout](#input\_update\_timeout) | The optional timout that is applied to limit long database updates. | `string` | `"30m"` | no |
