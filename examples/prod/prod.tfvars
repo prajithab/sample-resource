@@ -57,4 +57,3 @@ backup_configuration            = {
   retained_backups               = null
   retention_unit                 = null
 }
-//deletion_protection             = false
