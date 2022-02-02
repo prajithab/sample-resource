@@ -15,4 +15,5 @@ module "sql_cluster" {
   database_version    = var.database_version
   encryption_key_name = var.encryption_key_name
   client_cert_name    = var.client_cert_name
+  deletion_protection = var.deletion_protection
 }

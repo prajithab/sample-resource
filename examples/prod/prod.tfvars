@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-sprint6-postgresql-prod00-val"
+name                = "pegasus-poc-sprint6-postgresql-prod01-val"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
@@ -57,3 +57,5 @@ backup_configuration            = {
   retained_backups               = null
   retention_unit                 = null
 }
+
+

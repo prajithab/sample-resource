@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-gt-pg-duser-0"
+name                = "pegasus-poc-postgresql-duser0-0"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
@@ -16,5 +16,5 @@ user_labels         = {
 }
 
 #Optional Variables
-//deletion_protection = false  //Only for testing purpose it is set to false, defaulted to true.
+deletion_protection = false  //Only for testing purpose it is set to false, defaulted to true.
 

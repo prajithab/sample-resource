@@ -19,6 +19,10 @@ This terratest module executes a simple test using the generic module with the t
 the mandatory variable 'name' may need to be updated if you re-run this test multiple times, as this instance name will persist in the GCP environment for one week, and re-creation will be denied (even if it was successfully destroyed).
 Simply update the file with a new value.
 
+Optional Variable deletion_protection is defaulted to true. It has to be set to false to run terratest code.
+//Set to false only for testing purposes
+deletion_protection = false  
+
 ### Instructions for usage
 
 cd to this directory

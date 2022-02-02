@@ -31,4 +31,5 @@ module "sql_cluster" {
   maintenance_window_update_track = var.maintenance_window_update_track
   backup_configuration            = var.backup_configuration
   availability_type               = var.availability_type
+ 
 }
