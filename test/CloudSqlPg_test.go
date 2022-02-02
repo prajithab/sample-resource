@@ -3,7 +3,7 @@ package test
 import (
 	"context"
 	// 	"fmt"
-	"os"
+	//"os"
 	"strings"
 	"testing"
 
@@ -17,8 +17,8 @@ import (
 var instance_name string
 var private_address string
 var SQL_encryption_key_name string
-var TFPath = "../examples/prod/"
-var TFVarsFile = "prod.tfvars"
+var TFPath = "../examples/ephemeral-testing/"
+var TFVarsFile = "terratest.tfvars"
 
 func ListInstances(projectId string) ([]*sqladmin.DatabaseInstance, error) {
 	ctx := context.Background()
@@ -43,7 +43,7 @@ func ListInstances(projectId string) ([]*sqladmin.DatabaseInstance, error) {
 }
 
 func TestSQLAndValidateconfigParams(t *testing.T) {
-	os.Environ()
+	//os.Environ()
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: TFPath,
 		VarFiles:     []string{TFVarsFile},
@@ -53,10 +53,8 @@ func TestSQLAndValidateconfigParams(t *testing.T) {
 	// 		defer terraform.Destroy(t, terraformOptions)
 
 	//         This will run `terraform init` and `terraform apply` and fail the test if there are any errors
-	terraform.InitAndApply(t, terraformOptions)
 
-	// a simple test of existence. Other outputs should be tested as well
-	// Best to test using gcloud api to confirm existence using a means other than terraform.
+	terraform.InitAndApply(t, terraformOptions)
 
 	instance_connection_name := terraform.Output(t, terraformOptions, "instance_connection_name")
 	instance_name = terraform.Output(t, terraformOptions, "instance_name")
@@ -156,7 +154,7 @@ func TestSQLSecurityValidationEncryption(t *testing.T) {
 }
 
 func TestSQLSecurityValidateBackupConfiguration(t *testing.T) {
-	os.Environ()
+	//os.Environ()
 	terraformOptions := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
 		TerraformDir: TFPath,
 		VarFiles:     []string{TFVarsFile},
