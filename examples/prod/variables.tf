@@ -44,7 +44,7 @@ variable "db_name" {
 variable "user_name" {
   description = "The name of the default user"
   type        = string
-  default     = "default"
+  default     = "postgres"
 }
 
 variable "user_password" {
@@ -89,14 +89,15 @@ variable "disk_size" {
 variable "tier" {
   description = "The tier for the master instance."
   type        = string
-  default     = ""
+  default     = "db-f1-micro"
+  
 }
 
 variable "read_replicas" {
   description = "List of read replicas to create"
   type = list(object({
-    name            = string
-    zone            = string
+    name = string
+    zone = string
   }))
   default = []
 }
@@ -130,7 +131,7 @@ variable "additional_users" {
 variable "cloud_IAM_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
+    name = string
   }))
   default = []
 }
@@ -138,7 +139,7 @@ variable "cloud_IAM_users" {
 variable "cloud_IAM_SAusers" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    name     = string
+    name = string
   }))
   default = []
 }
@@ -164,7 +165,11 @@ variable "module_depends_on" {
 variable "availability_type" {
   description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
   type        = string
-  default     = "REGIONAL"
+  validation {
+    condition = var.availability_type == "REGIONAL" || var.availability_type == "ZONAL"
+    error_message = "The availability type for the master instance must be set to either `REGIONAL` or `ZONAL`."
+  }
+  default     = "ZONAL"
 }
 
 variable "maintenance_window_day" {
@@ -182,7 +187,23 @@ variable "maintenance_window_hour" {
 variable "maintenance_window_update_track" {
   description = "The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`."
   type        = string
-  default     = ""
+  validation {
+    condition     = var.maintenance_window_update_track == "canary" || var.maintenance_window_update_track == "stable"
+    error_message = "The update track of maintenance window for the master instance maintenance must be set to `canary` or `stable`."
+  }
+  default     = "canary"
+}
+
+variable "deletion_protection" {
+  description = "Used to block Terraform from deleting a SQL Instance."
+  type        = bool
+  default     = true
+}
+
+variable "read_replica_deletion_protection" {
+  description = "Used to block Terraform from deleting replica SQL Instances."
+  type        = bool
+  default     = true
 }
 
 variable "backup_configuration" {
@@ -197,7 +218,7 @@ variable "backup_configuration" {
     retention_unit                 = string
   })
   default = {
-    binary_log_enabled             = true
+    binary_log_enabled             = false
     enabled                        = true
     start_time                     = "00:30"
     location                       = null

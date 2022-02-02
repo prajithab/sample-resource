@@ -44,7 +44,7 @@ variable "db_name" {
 variable "user_name" {
   description = "The name of the default user"
   type        = string
-  default     = "default"
+  default     = "postgres"
 }
 
 variable "user_password" {
@@ -75,4 +75,15 @@ variable "client_cert_name" {
   description = "name for the client certificate"
   type        = string
   default     = ""
+}
+variable "deletion_protection" {
+  description = "Used to block Terraform from deleting a SQL Instance."
+  type        = bool
+  default     = true
+}
+
+variable "read_replica_deletion_protection" {
+  description = "Used to block Terraform from deleting replica SQL Instances."
+  type        = bool
+  default     = true
 }

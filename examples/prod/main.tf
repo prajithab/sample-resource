@@ -1,17 +1,3 @@
-provider "google" {
-
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
-  version = "~> 3.86.0"
-}
-
-provider "google-beta" {
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
-  version = "~> 3.86.0-beta.1"
-}
 
 module "sql_cluster" {
   source = "../../"
@@ -36,7 +22,7 @@ module "sql_cluster" {
   additional_databases            = var.additional_databases
   additional_users                = var.additional_users
   cloud_IAM_users                 = var.cloud_IAM_users
-  cloud_IAM_SAusers                 = var.cloud_IAM_SAusers
+  cloud_IAM_SAusers               = var.cloud_IAM_SAusers
   create_timeout                  = var.create_timeout
   update_timeout                  = var.update_timeout
   module_depends_on               = var.module_depends_on
@@ -45,4 +31,5 @@ module "sql_cluster" {
   maintenance_window_update_track = var.maintenance_window_update_track
   backup_configuration            = var.backup_configuration
   availability_type               = var.availability_type
+ 
 }
