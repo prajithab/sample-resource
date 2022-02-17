@@ -1,0 +1,12 @@
+.DS_Store
+backend.tfvars
+
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+*.mod
+*.sum
+go

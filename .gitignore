@@ -17,3 +17,7 @@ credentials.json
 .DS_Store
 test/go.mod
 test/go.sum
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
