@@ -1,6 +1,6 @@
 #Mandatory Variables
 region              = "us-east4"
-name                = "pegasus-poc-sprint6-postgresql-prod01-val"
+name                = "saby-tf-pipline-01"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
