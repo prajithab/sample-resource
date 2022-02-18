@@ -1,42 +1,84 @@
-#Mandatory Variables
+/****************************************************************
+                  Mandatory Variables
+****************************************************************/
+
+// Enter the region 
 region              = "us-east4"
+/* Enter the instance details. Remember if the instance fails to create, you will have to delete the instance manually
+   rename the instance name below and in the Jenkins pipeline config and retrigger it. 
+   This is because if it fails, Terraform will destroy the earlier instance and try to create one with the same name
+   however GCP does not allow to re-use deleted instance name till 7 days from the deletion of the instance
+*/ 
 name                = "saby-tf-pipline-01"
+// The VPC network name
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
+// The Host VPC project name.. If you do not know then contact the GCP cloud Engineering group CvsGCPEngineering@CVSHealth.com
 vpcproject          = "vpc-equinix-cvs"
+// your GCP project name
 project_id          = "digital-dfp-dev"
+// Primary Database to be created
 db_name             = "POSTGRESQLDB"
-// user_password       = "-350Mx"
-# encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
+// name of the client certificate that wil be automatically created to enforce SSL connection
 client_cert_name    = "clientapictecert"
+/* any Labels to identify the instance. The recommended ones are given below
+1. env
+2. app ( application team name/train name etc etc)
+3. itpr ( for billing purposes)
+4. costcenter
+5. dataclassification ( data classification .. proprietary, confidential or public
+*/
 user_labels = {
-  "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
-  "dataclassification" = "pegasus"
+  "env" = "dev", "app" = "myapp", "itpr" = "itpr11111", "costcenter" = "mytrain",
+  "dataclassification" = "proprietery"
 }
 
-#optional Variables
+/****************************************************************
+                  Optional Variables
+****************************************************************/
+// Initial disk size. Instance are always created to increase the size as the data increases
 disk_size                       = 10
+// the tier of the instance. Refere to 
 tier                            = "db-f1-micro"
-read_replicas                   = [
+/* enter the number of read replicas needed
+ For read-heavy workloads, add read replicas to offload traffic from the primary instance.
+ Example: for one read replica. add more if needed.. rarely
+ Elements
+ name : suffix to be added to the replica
+ zone: zone where it must be created
+
+ read_replicas                   = [
                                     {
-                                      "name" = "-pega1"
+                                      "name" = "-replica1"
                                       zone   = "us-east4-a"
                                     } 
-                                    , {
-                                      "name" = "-pega2"
-                                      zone   = "us-east4-b"
-                                    }
                                   ]
-additional_databases            = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "en_US.UTF8" }]
-/*
-additional_users                = [
-    { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" }
-     ,{ "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
-]
 */
-cloud_IAM_SAusers                 = [
+read_replicas                   = [
+                                  ]
+/*
+  Additional databased to be created. Must be in this format
+  Elements
+  name: name of the database
+  charset: charset of the database .. ( should be utf8)
+  collation: collation of the database .. ( should be en_US.UTF8)
+additional_databases            = [{ "name" = "add-anotherdb", "charset" = "utf8", "collation" = "en_US.UTF8" }]
+
+*/
+additional_databases            = []
+
+/*
+  Enter cloud IAM authentication if needed. Read crefully
+  cloud_IAM_SAusers                 = [
   { "name" = "k8s-infrastructure-temporary"}
 ]
+*/
+cloud_IAM_SAusers   = []
+
+/*
+  Enter cloud IAM authentication if needed. Read crefully
 cloud_IAM_users                 = [
   { "name" = "samalg@aetna.com" }
 ]
+*/
+cloud_IAM_users  = []
 
