@@ -2,7 +2,7 @@
                   Mandatory Variables
 ****************************************************************/
 
-// Enter the region 
+// Enter the region of cloud sql
 region              = "us-east4"
 /* Enter the instance details. Remember if the instance fails to create, you will have to delete the instance manually
    rename the instance name below and in the Jenkins pipeline config and retrigger it. 
@@ -37,10 +37,13 @@ user_labels = {
 /****************************************************************
                   Optional Variables
 ****************************************************************/
+// database version if you want to override the default. The default is the latest and greatest out there
+// refer to https://cloud.google.com/sql/docs/db-versions
+database_version                = ""
 // Initial disk size. Instance are always created to increase the size as the data increases
 disk_size                       = 10
 /* The tier of the instance. 
-   Refere to https://cloud.google.com/sql/docs/mysql/instance-settings
+   Refere to https://cloud.google.com/sql/docs/postgres/instance-settings
 */
 tier                            = "db-f1-micro"
 /* enter the number of read replicas needed
@@ -71,7 +74,7 @@ additional_databases            = [{ "name" = "add-anotherdb", "charset" = "utf8
 additional_databases            = []
 
 /*
-  Enter IAM Service Account for use in authentication if needed. Read crefully https://cloud.google.com/sql/docs/mysql/authentication
+  Enter IAM Service Account for use in authentication if needed. Read crefully https://cloud.google.com/sql/docs/postgres/authentication
   cloud_IAM_SAusers                 = [
   { "name" = "k8s-infrastructure-temporary"}
 ]
@@ -79,7 +82,7 @@ additional_databases            = []
 cloud_IAM_SAusers   = []
 
 /*
-  Enter cloud IAM user for authentication if needed. Read crefully https://cloud.google.com/sql/docs/mysql/authentication
+  Enter cloud IAM user for authentication if needed. Read crefully https://cloud.google.com/sql/docs/postgres/authentication
 cloud_IAM_users                 = [
   { "name" = "samalg@aetna.com" }
 ]
