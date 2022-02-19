@@ -8,6 +8,8 @@ region              = "us-east4"
    rename the instance name below and in the Jenkins pipeline config and retrigger it. 
    This is because if it fails, Terraform will destroy the earlier instance and try to create one with the same name
    however GCP does not allow to re-use deleted instance name till 7 days from the deletion of the instance
+
+   Remember the same name has to be mentioned in the Jenkins pipeline config as well otherwise it will error out
 */ 
 name                = "saby-tf-pipline-01"
 // The VPC network name
@@ -37,7 +39,9 @@ user_labels = {
 ****************************************************************/
 // Initial disk size. Instance are always created to increase the size as the data increases
 disk_size                       = 10
-// the tier of the instance. Refere to https://cloud.google.com/sql/docs/mysql/instance-settings
+/* The tier of the instance. 
+   Refere to https://cloud.google.com/sql/docs/mysql/instance-settings
+*/
 tier                            = "db-f1-micro"
 /* enter the number of read replicas needed
  For read-heavy workloads, add read replicas to offload traffic from the primary instance.
