@@ -37,7 +37,7 @@ user_labels = {
 ****************************************************************/
 // Initial disk size. Instance are always created to increase the size as the data increases
 disk_size                       = 10
-// the tier of the instance. Refere to 
+// the tier of the instance. Refere to https://cloud.google.com/sql/docs/mysql/instance-settings
 tier                            = "db-f1-micro"
 /* enter the number of read replicas needed
  For read-heavy workloads, add read replicas to offload traffic from the primary instance.
@@ -67,7 +67,7 @@ additional_databases            = [{ "name" = "add-anotherdb", "charset" = "utf8
 additional_databases            = []
 
 /*
-  Enter cloud IAM authentication if needed. Read crefully
+  Enter IAM Service Account for use in authentication if needed. Read crefully https://cloud.google.com/sql/docs/mysql/authentication
   cloud_IAM_SAusers                 = [
   { "name" = "k8s-infrastructure-temporary"}
 ]
@@ -75,7 +75,7 @@ additional_databases            = []
 cloud_IAM_SAusers   = []
 
 /*
-  Enter cloud IAM authentication if needed. Read crefully
+  Enter cloud IAM user for authentication if needed. Read crefully https://cloud.google.com/sql/docs/mysql/authentication
 cloud_IAM_users                 = [
   { "name" = "samalg@aetna.com" }
 ]
