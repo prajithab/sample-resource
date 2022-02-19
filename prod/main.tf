@@ -39,5 +39,7 @@ module "sql_cluster" {
                                       retention_unit                 = null
                                     }
   availability_type               = "REGIONAL"
+  deletion_protection = false
+  read_replica_deletion_protection = false
  
 }
