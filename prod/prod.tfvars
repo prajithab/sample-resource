@@ -11,7 +11,7 @@ region              = "us-east4"
 
    Remember the same name has to be mentioned in the Jenkins pipeline config as well otherwise it will error out
 */ 
-name                = "saby-tf-pipline-01"
+name                = "saby-tf-pipline-04"
 // The VPC network name
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 // The Host VPC project name.. If you do not know then contact the GCP cloud Engineering group CvsGCPEngineering@CVSHealth.com
