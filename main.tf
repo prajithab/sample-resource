@@ -220,7 +220,7 @@ resource "google_sql_user" "additional_users" {
   for_each = local.users
   project  = var.project_id
   name     = each.value.name
-  password = lookup(each.value, "password")
+  password = sensitive(lookup(each.value, "password"))
   #host       = lookup(each.value, "host", var.user_host)
   instance   = google_sql_database_instance.default.name
   depends_on = [null_resource.module_depends_on, google_sql_database_instance.default]
