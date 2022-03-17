@@ -13,6 +13,12 @@ variable "random_instance_name" {
   default     = false
 }
 
+variable "point_in_time_recovery" {
+  type        = bool
+  description = "Sets point in time recovery for Cloud SQL resource"
+  default     = false
+}
+
 // required
 variable "database_version" {
   description = "The database version to use"
@@ -141,6 +147,38 @@ variable "backup_configuration" {
     transaction_log_retention_days = null
     retained_backups               = null
     retention_unit                 = null
+  }
+}
+
+variable "query_insights_config" {
+  description = "The insights_config settings for master instance"
+  type = object({
+    query_insights_enabled           = bool
+    record_application_tags          = bool
+    record_client_address            = bool
+    query_string_length              = number
+  })
+  default = {
+    query_insights_enabled           = false
+    record_application_tags          = false
+    record_client_address            = false
+    query_string_length              = 1024
+  }
+}
+
+variable "replica_query_insights_config" {
+  description = "The insights_config settings for replicas"
+  type = object({
+    query_insights_enabled           = bool
+    record_application_tags          = bool
+    record_client_address            = bool
+    query_string_length              = number
+  })
+  default = {
+    query_insights_enabled           = false
+    record_application_tags          = false
+    record_client_address            = false
+    query_string_length              = 1024
   }
 }
 

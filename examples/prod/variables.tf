@@ -1,10 +1,17 @@
+// Mandatory for for_each usecase
+variable "postgresql" {
+  type = map(object({
+    db_tier = string
+  }))
+  default = {}
+}
+
 //Mandatory
 variable "project_id" {
   description = "The project ID to manage the Cloud SQL resources"
   type        = string
   default     = ""
 }
-
 variable "name" {
   type        = string
   description = "The name of the Cloud SQL resources"
@@ -198,6 +205,44 @@ variable "deletion_protection" {
   description = "Used to block Terraform from deleting a SQL Instance."
   type        = bool
   default     = true
+}
+
+variable "point_in_time_recovery" {
+  description = "Sets point in time recovery for Cloud SQL resource."
+  type        = bool
+  default     = true
+}
+
+variable "query_insights_config" {
+  description = "The insights_config settings master instance"
+  type = object({
+    query_insights_enabled           = bool
+    record_application_tags          = bool
+    record_client_address            = bool
+    query_string_length              = number
+  })
+  default = {
+    query_insights_enabled           = false
+    record_application_tags          = false
+    record_client_address            = false
+    query_string_length              = 1024
+  }
+}
+
+variable "replica_query_insights_config" {
+  description = "The insights_config settings for replicas"
+  type = object({
+    query_insights_enabled           = bool
+    record_application_tags          = bool
+    record_client_address            = bool
+    query_string_length              = number
+  })
+  default = {
+    query_insights_enabled           = false
+    record_application_tags          = false
+    record_client_address            = false
+    query_string_length              = 1024
+  }
 }
 
 variable "read_replica_deletion_protection" {

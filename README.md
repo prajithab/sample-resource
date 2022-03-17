@@ -22,7 +22,7 @@ terraform-docs -c .config/.tfdocs-config.yml . > README.md
 terraform-google-cloudsql-postgresql makes it easy to create a secure Google CloudSQL instance in a private subnet and implement high availability settings.
 This module consists of the following submodules:
 
-- [mysql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-postgresql)
+- [postgresql](https://gitw.cvshealth.com/da/dfp/terraform-modules/terraform-google-cloudsql-postgresql)
 
 See more details in the example folders README.
 
@@ -43,8 +43,20 @@ and follows these guidelines:
 This module has root configuration.
 Copy and paste into your Terraform configuration,In the `examples` section insert the variables (*.tfvars based on environment), and run terraform init :
 
-For MySQL :
+For PostgreSQL :
 ```
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
 module "sql_cluster" {
   source = "../"
 
@@ -144,11 +156,14 @@ module "sql_cluster" {
 | <a name="input_maintenance_window_hour"></a> [maintenance\_window\_hour](#input\_maintenance\_window\_hour) | The hour of day (0-23) maintenance window for the master instance maintenance. | `number` | `23` | no |
 | <a name="input_maintenance_window_update_track"></a> [maintenance\_window\_update\_track](#input\_maintenance\_window\_update\_track) | The update track of maintenance window for the master instance maintenance. Can be either `canary` or `stable`. | `string` | `"canary"` | no |
 | <a name="input_module_depends_on"></a> [module\_depends\_on](#input\_module\_depends\_on) | List of modules or resources this module depends on. | `list(any)` | `[]` | no |
+| <a name="input_point_in_time_recovery"></a> [point\_in\_time\_recovery](#input\_point\_in\_time\_recovery) | Sets point in time recovery for Cloud SQL resource | `bool` | `false` | no |
 | <a name="input_pricing_plan"></a> [pricing\_plan](#input\_pricing\_plan) | The pricing plan for the master instance. | `string` | `"PER_USE"` | no |
+| <a name="input_query_insights_config"></a> [query\_insights\_config](#input\_query\_insights\_config) | The insights\_config settings for master instance | <pre>object({<br>    query_insights_enabled           = bool<br>    record_application_tags          = bool<br>    record_client_address            = bool<br>    query_string_length              = number<br>  })</pre> | <pre>{<br>  "query_insights_enabled": false,<br>  "query_string_length": 1024,<br>  "record_application_tags": false,<br>  "record_client_address": false<br>}</pre> | no |
 | <a name="input_random_instance_name"></a> [random\_instance\_name](#input\_random\_instance\_name) | Sets random suffix at the end of the Cloud SQL resource name | `bool` | `false` | no |
 | <a name="input_read_replica_deletion_protection"></a> [read\_replica\_deletion\_protection](#input\_read\_replica\_deletion\_protection) | Used to block Terraform from deleting replica SQL Instances. | `bool` | `true` | no |
 | <a name="input_read_replica_name_suffix"></a> [read\_replica\_name\_suffix](#input\_read\_replica\_name\_suffix) | The optional suffix to add to the read instance name | `string` | `""` | no |
 | <a name="input_read_replicas"></a> [read\_replicas](#input\_read\_replicas) | List of read replicas to create | <pre>list(object({<br>    name = string<br>    zone = string<br><br>  }))</pre> | `[]` | no |
+| <a name="input_replica_query_insights_config"></a> [replica\_query\_insights\_config](#input\_replica\_query\_insights\_config) | The insights\_config settings for replicas | <pre>object({<br>    query_insights_enabled           = bool<br>    record_application_tags          = bool<br>    record_client_address            = bool<br>    query_string_length              = number<br>  })</pre> | <pre>{<br>  "query_insights_enabled": false,<br>  "query_string_length": 1024,<br>  "record_application_tags": false,<br>  "record_client_address": false<br>}</pre> | no |
 | <a name="input_tier"></a> [tier](#input\_tier) | The tier for the master instance. | `string` | `"db-f1-micro"` | no |
 | <a name="input_update_timeout"></a> [update\_timeout](#input\_update\_timeout) | The optional timout that is applied to limit long database updates. | `string` | `"30m"` | no |
 | <a name="input_user_host"></a> [user\_host](#input\_user\_host) | The host for the default user | `string` | `"%"` | no |

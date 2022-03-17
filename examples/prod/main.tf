@@ -1,14 +1,27 @@
 
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
 module "sql_cluster" {
   source = "../../"
-
+  for_each = var.postgresql
   project_id                      = var.project_id
   region                          = var.region
   zone                            = var.zone
   vpcnetwork                      = var.vpcnetwork
   vpcproject                      = var.vpcproject
   db_name                         = var.db_name
-  name                            = var.name
+  name  = each.key 
+  # name                            = var.name
   user_name                       = var.user_name
   user_password                   = var.user_password
   user_labels                     = var.user_labels
@@ -16,7 +29,8 @@ module "sql_cluster" {
   encryption_key_name             = var.encryption_key_name
   client_cert_name                = var.client_cert_name
   disk_size                       = var.disk_size
-  tier                            = var.tier
+  # tier                            = var.tier
+  tier  = each.value.db_tier
   read_replicas                   = var.read_replicas
   read_replica_name_suffix        = var.read_replica_name_suffix
   additional_databases            = var.additional_databases
@@ -31,5 +45,7 @@ module "sql_cluster" {
   maintenance_window_update_track = var.maintenance_window_update_track
   backup_configuration            = var.backup_configuration
   availability_type               = var.availability_type
- 
+  point_in_time_recovery  = var.point_in_time_recovery
+  query_insights_config = var.query_insights_config
+  replica_query_insights_config = var.replica_query_insights_config
 }
