@@ -3,19 +3,6 @@ terraform {
   required_version = ">1.0.0"
 }
 
-provider "google" {
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
-}
-
-provider "google-beta" {
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
-}
-
-
 data "google_compute_network" "postgresql_network" {
   name    = var.vpcnetwork
   project = var.vpcproject
@@ -45,6 +32,7 @@ locals {
   
   //Irrespective of availability_type, backups will be always enabled for an instance.
   backups_enabled    = true
+  point_in_time_recovery_enabled = var.point_in_time_recovery
   retained_backups = lookup(var.backup_configuration, "retained_backups", null)
   retention_unit   = lookup(var.backup_configuration, "retention_unit", null)
 }
@@ -119,6 +107,7 @@ resource "google_sql_database_instance" "default" {
       content {
         binary_log_enabled             = local.binary_log_enabled
         enabled                        = local.backups_enabled
+        point_in_time_recovery_enabled = local.point_in_time_recovery_enabled
         start_time                     = lookup(backup_configuration.value, "start_time", null)
         location                       = lookup(backup_configuration.value, "location", null)
         transaction_log_retention_days = lookup(backup_configuration.value, "transaction_log_retention_days", null)
@@ -168,6 +157,13 @@ resource "google_sql_database_instance" "default" {
       day          = var.maintenance_window_day
       hour         = var.maintenance_window_hour
       update_track = var.maintenance_window_update_track
+    }
+
+    insights_config {
+      query_insights_enabled = lookup(var.query_insights_config, "query_insights_enabled", false)
+      query_string_length = lookup(var.query_insights_config, "query_string_length", 1024)
+      record_application_tags = lookup(var.query_insights_config, "record_application_tags", false)
+      record_client_address = lookup(var.query_insights_config, "record_client_address", false)
     }
   }
 
@@ -340,6 +336,13 @@ resource "google_sql_database_instance" "replicas" {
 
     location_preference {
       zone = lookup(each.value, "zone", var.zone)
+    }
+
+    insights_config {
+      query_insights_enabled = lookup(var.replica_query_insights_config, "query_insights_enabled", false)
+      query_string_length = lookup(var.replica_query_insights_config, "query_string_length", 1024)
+      record_application_tags = lookup(var.replica_query_insights_config, "record_application_tags", false)
+      record_client_address = lookup(var.replica_query_insights_config, "record_client_address", false)
     }
 
   }
