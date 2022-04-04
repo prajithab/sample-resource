@@ -1,6 +1,6 @@
 
 module "sql_cluster" {
-  source = "../"
+  source = "../../"
 
   project_id                      = var.project_id
   region                          = var.region
