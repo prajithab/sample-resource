@@ -1,6 +1,13 @@
 
 # terraform-google-cloudsql-postgresql
 
+## Prerequisite
+
+- Requried CMEK
+- CMEK need to have the proper permissions for the role/principle that is used to created the postgresql resources with Cloud KMS CryptoKey Encrypter/Decrypter permissions.
+
+Note: Please work with Cloud IAM team for access if needed.
+
 ## Ownership
 
 This module was developed by the Pegasus team.
