@@ -27,7 +27,8 @@ module "sql_cluster" {
   user_labels                     = var.user_labels
   database_version                = var.database_version
   encryption_key_name             = var.encryption_key_name
-  client_cert_name                = var.client_cert_name
+  # client_cert_name                = var.client_cert_name
+  client_cert_name  = each.value.client_cert_name
   disk_size                       = var.disk_size
   # tier                            = var.tier
   tier  = each.value.db_tier

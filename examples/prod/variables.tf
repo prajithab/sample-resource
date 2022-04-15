@@ -2,6 +2,7 @@
 variable "postgresql" {
   type = map(object({
     db_tier = string
+    client_cert_name = string
   }))
   default = {}
 }

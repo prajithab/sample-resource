@@ -2,8 +2,8 @@
 region = "us-east4"
 zone   = "us-east4-b"
 postgresql = {
-  postgresql-name-1 = { db_tier = "db-f1-micro" }
-  postgresql-name-2 = { db_tier = "db-f1-micro" }
+  postgresql-name-3 = { db_tier = "db-f1-micro", client_cert_name = "demo1" }
+  postgresql-name-4 = { db_tier = "db-f1-micro", client_cert_name = "demo2" }
 }
 # name                = "pegasus-poc-sprint6-postgresql-prod01-val"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
@@ -13,7 +13,7 @@ db_name             = "POSTGRESQLDB"
 user_password       = "-350Mx"
 database_version    = "POSTGRES_14"
 encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
-client_cert_name    = "clientapictecert"
+# client_cert_name    = "clientapictecert"
 user_labels = {
   "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
   "dataclassification" = "pegasus"
@@ -21,19 +21,19 @@ user_labels = {
 
 #optional Variables
 query_insights_config = {
-    query_insights_enabled           = false
-    record_application_tags          = false
-    record_client_address            = false
-    query_string_length              = 1024
-  }
+  query_insights_enabled  = false
+  record_application_tags = false
+  record_client_address   = false
+  query_string_length     = 1024
+}
 replica_query_insights_config = {
-    query_insights_enabled           = true
-    record_application_tags          = false
-    record_client_address            = false
-    query_string_length              = 1024
-  }
+  query_insights_enabled  = true
+  record_application_tags = false
+  record_client_address   = false
+  query_string_length     = 1024
+}
 point_in_time_recovery = true
-disk_size = 10
+disk_size              = 10
 # tier      = "db-f1-micro"
 read_replicas = [
   {
