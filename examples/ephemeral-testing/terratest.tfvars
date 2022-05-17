@@ -1,7 +1,7 @@
 #Mandatory Variables
 region              = "us-east4"
 zone                = "us-east4-b"
-name                = "pegasus-poc-postgresql-duser0-0"
+name                = "jedi-poc-postgresql-duser0-0"
 vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
@@ -11,8 +11,8 @@ database_version    = "POSTGRES_14"
 encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
 client_cert_name    = "clientapictecert"
 user_labels         = {
-  "env"                = "dev", "app" = "pegasus", "itpr" = "dfp-team-pegasus", "costcenter" = "dfp",
-  "dataclassification" = "pegasus"
+  "env"                = "dev", "app" = "jedi", "itpr" = "dfp-team-jedi", "costcenter" = "dfp",
+  "dataclassification" = "jedi"
 }
 
 #Optional Variables
