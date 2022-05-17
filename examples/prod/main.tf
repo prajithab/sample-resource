@@ -1,3 +1,19 @@
+provider "vault" {
+   address = "https://vault-nonprod.cvshealth.com"
+   auth_login {
+     path = "auth/terraform-digital-dfp-dev-jedi-readrole/login"
+
+     parameters = {
+       role_id   = var.login_approle_role_id
+       secret_id = var.login_approle_secret_id
+     }
+   }
+
+}
+
+data "vault_generic_secret" "my_secret" {
+     path = "kv-v2/app/terraform/digital-dfp-dev/jedi/cloudsql-postgresql"
+}
 
 provider "google" {
   project = var.project_id
@@ -22,8 +38,8 @@ module "sql_cluster" {
   db_name                         = var.db_name
   name  = each.key 
   # name                            = var.name
-  user_name                       = var.user_name
-  user_password                   = var.user_password
+  user_name           = data.vault_generic_secret.my_secret.data["user_name"]
+  user_password       = data.vault_generic_secret.my_secret.data["password"]
   user_labels                     = var.user_labels
   database_version                = var.database_version
   encryption_key_name             = var.encryption_key_name
@@ -35,7 +51,7 @@ module "sql_cluster" {
   read_replicas                   = var.read_replicas
   read_replica_name_suffix        = var.read_replica_name_suffix
   additional_databases            = var.additional_databases
-  additional_users                = var.additional_users
+  # additional_users                = var.additional_users
   cloud_IAM_users                 = var.cloud_IAM_users
   cloud_IAM_SAusers               = var.cloud_IAM_SAusers
   create_timeout                  = var.create_timeout

@@ -10,7 +10,7 @@ vpcnetwork          = "vpc-cvs-hub-nonprod-1"
 vpcproject          = "vpc-equinix-cvs"
 project_id          = "digital-dfp-dev"
 db_name             = "POSTGRESQLDB"
-user_password       = "-350Mx"
+# user_password       = "-350Mx"
 database_version    = "POSTGRES_14"
 encryption_key_name = "projects/digital-dfp-dev/locations/us-east4/keyRings/digital-dfp-dev-terratest/cryptoKeys/digital-dfp-dev-terratest"
 # client_cert_name    = "clientapictecert"
@@ -47,10 +47,10 @@ read_replicas = [
 ]
 read_replica_name_suffix = "1"
 additional_databases     = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "en_US.UTF8" }]
-additional_users = [
-  { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" }
-  , { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
-]
+# additional_users = [
+#   { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" }
+#   , { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
+# ]
 cloud_IAM_SAusers = [
   { "name" = "k8s-infrastructure-temporary" }
 
