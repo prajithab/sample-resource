@@ -1,14 +1,16 @@
+terraform {
+ 	required_version = "1.1.7"
+ }
+
 provider "vault" {
    address = "https://vault-nonprod.cvshealth.com"
    auth_login {
      path = "auth/terraform-digital-dfp-dev-jedi-readrole/login"
-
      parameters = {
        role_id   = var.login_approle_role_id
        secret_id = var.login_approle_secret_id
      }
    }
-
 }
 
 data "vault_generic_secret" "my_secret" {
