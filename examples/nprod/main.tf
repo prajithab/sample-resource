@@ -2,6 +2,18 @@ terraform {
  	required_version = "1.1.7"
  }
 
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+provider "google-beta" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
 provider "vault" {
    address = "https://vault-nonprod.cvshealth.com"
    auth_login {
@@ -15,18 +27,6 @@ provider "vault" {
 
 data "vault_generic_secret" "my_secret" {
      path = "kv-v2/app/terraform/digital-dfp-dev/jedi/cloudsql-postgres"
-}
-
-provider "google" {
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
-}
-
-provider "google-beta" {
-  project = var.project_id
-  region  = var.region
-  zone    = var.zone
 }
 
 module "sql_cluster" {
