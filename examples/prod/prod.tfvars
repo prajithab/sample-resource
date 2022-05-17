@@ -37,19 +37,19 @@ disk_size              = 10
 # tier      = "db-f1-micro"
 read_replicas = [
   {
-    "name" = "-pega1"
+    "name" = "-jedi1"
     zone   = "us-east4-a"
   }
   , {
-    "name" = "-pega2"
+    "name" = "-jedi2"
     zone   = "us-east4-b"
   }
 ]
 read_replica_name_suffix = "1"
-additional_databases     = [{ "name" = "add-pega", "charset" = "utf8", "collation" = "en_US.UTF8" }]
+additional_databases     = [{ "name" = "add-jedi", "charset" = "utf8", "collation" = "en_US.UTF8" }]
 # additional_users = [
-#   { "name" = "addusr1-pega", "host" = "%", "password" = "utf8generalci" }
-#   , { "name" = "addusr2-pega", "host" = "%", "password" = "utf8generalci" }
+#   { "name" = "addusr1-jedi", "host" = "%", "password" = "utf8generalci" }
+#   , { "name" = "addusr2-jedi", "host" = "%", "password" = "utf8generalci" }
 # ]
 cloud_IAM_SAusers = [
   { "name" = "k8s-infrastructure-temporary" }
