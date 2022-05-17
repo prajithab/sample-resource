@@ -12,7 +12,7 @@ provider "vault" {
 }
 
 data "vault_generic_secret" "my_secret" {
-     path = "kv-v2/app/terraform/digital-dfp-dev/jedi/cloudsql-postgresql"
+     path = "kv-v2/app/terraform/digital-dfp-dev/jedi/cloudsql-postgres"
 }
 
 provider "google" {
@@ -38,7 +38,7 @@ module "sql_cluster" {
   db_name                         = var.db_name
   name  = each.key 
   # name                            = var.name
-  user_name           = data.vault_generic_secret.my_secret.data["user_name"]
+  user_name           = data.vault_generic_secret.my_secret.data["name"]
   user_password       = data.vault_generic_secret.my_secret.data["password"]
   user_labels                     = var.user_labels
   database_version                = var.database_version
