@@ -4,6 +4,7 @@
 
 - Requried CMEK
 - CMEK need to have the proper permissions for the role/principle that is used to created the postgresql resources with Cloud KMS CryptoKey Encrypter/Decrypter permissions.
+- Service account with CMEK access is required, please refer this doc : https://cloud.google.com/sql/docs/postgres/configure-cmek#service-account
 
 Note: Please work with Cloud IAM team for access if needed.
 
