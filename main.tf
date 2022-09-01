@@ -86,7 +86,7 @@ resource "google_sql_database_instance" "default" {
 
     database_flags {
       name  = "log_min_messages"
-      value = "ERROR"
+      value = "LOG"
     }
 
     database_flags {
