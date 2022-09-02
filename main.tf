@@ -84,10 +84,10 @@ resource "google_sql_database_instance" "default" {
       value = "on"
     }
 
-    #database_flags {
-    #  name  = "log_min_messages"
-    #  value = "error"
-    #}
+    database_flags {
+      name  = "log_min_messages"
+      value = "panic"
+    }
 
     database_flags {
       name  = "log_temp_files"
