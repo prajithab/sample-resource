@@ -52,7 +52,7 @@ resource "google_sql_database_instance" "default" {
   deletion_protection = var.deletion_protection
   encryption_key_name = var.encryption_key_name
 
-#  settings {
+  settings {
 #
 #    database_flags {
 #      name  = "autovacuum"
