@@ -52,52 +52,52 @@ resource "google_sql_database_instance" "default" {
   deletion_protection = var.deletion_protection
   encryption_key_name = var.encryption_key_name
 
-  settings {
-
-    database_flags {
-      name  = "autovacuum"
-      value = "off"
-    }
-
-    database_flags {
-      name  = "log_min_duration_statement"
-      value = -1
-    }
-
-    database_flags {
-      name  = "log_checkpoints"
-      value = "on"
-    }
-
-    database_flags {
-      name  = "log_connections"
-      value = "on"
-    }
-
-    database_flags {
-      name  = "log_disconnections"
-      value = "on"
-    }
-
-    database_flags {
-      name  = "log_lock_waits"
-      value = "on"
-    }
-
-    database_flags {
-      name  = "log_min_messages"
-      value = "debug5"
-    }
-
-    database_flags {
-      name  = "log_temp_files"
-      value = 0
-    }
-
-    database_flags {
-      name  = "cloudsql.iam_authentication"
-      value = "on"
-    }
+#  settings {
+#
+#    database_flags {
+#      name  = "autovacuum"
+#      value = "off"
+#    }
+#
+#    database_flags {
+#      name  = "log_min_duration_statement"
+#      value = -1
+#    }
+#
+#    database_flags {
+#      name  = "log_checkpoints"
+#      value = "on"
+#    }
+#
+#    database_flags {
+#      name  = "log_connections"
+#      value = "on"
+#    }
+#
+#    database_flags {
+#      name  = "log_disconnections"
+#      value = "on"
+#    }
+#
+#    database_flags {
+#      name  = "log_lock_waits"
+#      value = "on"
+#    }
+#
+#    database_flags {
+#      name  = "log_min_messages"
+#      value = "debug5"
+#    }
+#
+#    database_flags {
+#      name  = "log_temp_files"
+#      value = 0
+#    }
+#
+#    database_flags {
+#      name  = "cloudsql.iam_authentication"
+#      value = "on"
+#    }
 
     tier              = var.tier
     activation_policy = var.activation_policy
