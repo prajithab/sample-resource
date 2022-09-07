@@ -12,26 +12,26 @@ provider "google-beta" {
 }
 
 module "sql_cluster" {
-  source = "../../"
-  for_each = var.postgresql
-  project_id                      = var.project_id
-  region                          = var.region
-  zone                            = var.zone
-  vpcnetwork                      = var.vpcnetwork
-  vpcproject                      = var.vpcproject
-  db_name                         = var.db_name
-  name  = each.key 
+  source     = "git::ssh://git@gitw.cvshealth.com/da/dfp/terraform-modules/approved-for-use/terraform-google-cloudsql-postgresql.git?ref=v1.1.0"
+  for_each   = var.postgresql
+  project_id = var.project_id
+  region     = var.region
+  zone       = var.zone
+  vpcnetwork = var.vpcnetwork
+  vpcproject = var.vpcproject
+  db_name    = var.db_name
+  name       = each.key
   # name                            = var.name
-  user_name                       = var.user_name
-  user_password                   = var.user_password
-  user_labels                     = var.user_labels
-  database_version                = var.database_version
-  encryption_key_name             = var.encryption_key_name
+  user_name           = var.user_name
+  user_password       = var.user_password
+  user_labels         = var.user_labels
+  database_version    = var.database_version
+  encryption_key_name = var.encryption_key_name
   # client_cert_name                = var.client_cert_name
-  client_cert_name  = each.value.client_cert_name
-  disk_size                       = var.disk_size
+  client_cert_name = each.value.client_cert_name
+  disk_size        = var.disk_size
   # tier                            = var.tier
-  tier  = each.value.db_tier
+  tier                            = each.value.db_tier
   read_replicas                   = var.read_replicas
   read_replica_name_suffix        = var.read_replica_name_suffix
   additional_databases            = var.additional_databases
@@ -46,7 +46,7 @@ module "sql_cluster" {
   maintenance_window_update_track = var.maintenance_window_update_track
   backup_configuration            = var.backup_configuration
   availability_type               = var.availability_type
-  point_in_time_recovery  = var.point_in_time_recovery
-  query_insights_config = var.query_insights_config
-  replica_query_insights_config = var.replica_query_insights_config
+  point_in_time_recovery          = var.point_in_time_recovery
+  query_insights_config           = var.query_insights_config
+  replica_query_insights_config   = var.replica_query_insights_config
 }

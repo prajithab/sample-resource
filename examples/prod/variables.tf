@@ -1,7 +1,7 @@
 // Mandatory for for_each usecase
 variable "postgresql" {
   type = map(object({
-    db_tier = string
+    db_tier          = string
     client_cert_name = string
   }))
   default = {}
@@ -98,7 +98,7 @@ variable "tier" {
   description = "The tier for the master instance."
   type        = string
   default     = "db-f1-micro"
-  
+
 }
 
 variable "read_replicas" {
@@ -174,10 +174,10 @@ variable "availability_type" {
   description = "The availability type for the master instance. Can be either `REGIONAL` or `ZONAL`."
   type        = string
   validation {
-    condition = var.availability_type == "REGIONAL" || var.availability_type == "ZONAL"
+    condition     = var.availability_type == "REGIONAL" || var.availability_type == "ZONAL"
     error_message = "The availability type for the master instance must be set to either `REGIONAL` or `ZONAL`."
   }
-  default     = "ZONAL"
+  default = "ZONAL"
 }
 
 variable "maintenance_window_day" {
@@ -199,7 +199,7 @@ variable "maintenance_window_update_track" {
     condition     = var.maintenance_window_update_track == "canary" || var.maintenance_window_update_track == "stable"
     error_message = "The update track of maintenance window for the master instance maintenance must be set to `canary` or `stable`."
   }
-  default     = "canary"
+  default = "canary"
 }
 
 variable "deletion_protection" {
@@ -217,32 +217,32 @@ variable "point_in_time_recovery" {
 variable "query_insights_config" {
   description = "The insights_config settings master instance"
   type = object({
-    query_insights_enabled           = bool
-    record_application_tags          = bool
-    record_client_address            = bool
-    query_string_length              = number
+    query_insights_enabled  = bool
+    record_application_tags = bool
+    record_client_address   = bool
+    query_string_length     = number
   })
   default = {
-    query_insights_enabled           = false
-    record_application_tags          = false
-    record_client_address            = false
-    query_string_length              = 1024
+    query_insights_enabled  = false
+    record_application_tags = false
+    record_client_address   = false
+    query_string_length     = 1024
   }
 }
 
 variable "replica_query_insights_config" {
   description = "The insights_config settings for replicas"
   type = object({
-    query_insights_enabled           = bool
-    record_application_tags          = bool
-    record_client_address            = bool
-    query_string_length              = number
+    query_insights_enabled  = bool
+    record_application_tags = bool
+    record_client_address   = bool
+    query_string_length     = number
   })
   default = {
-    query_insights_enabled           = false
-    record_application_tags          = false
-    record_client_address            = false
-    query_string_length              = 1024
+    query_insights_enabled  = false
+    record_application_tags = false
+    record_client_address   = false
+    query_string_length     = 1024
   }
 }
 

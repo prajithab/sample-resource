@@ -12,7 +12,7 @@ provider "google-beta" {
 }
 
 module "sql_cluster" {
-  source = "../../"
+  source = "git::ssh://git@gitw.cvshealth.com/da/dfp/terraform-modules/approved-for-use/terraform-google-cloudsql-postgresql.git?ref=v1.1.0"
 
   project_id          = var.project_id
   region              = var.region
