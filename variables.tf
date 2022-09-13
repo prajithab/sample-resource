@@ -336,13 +336,12 @@ variable "enable_default_db" {
 }
 
 //  Google cloud creates a default user named 'postgres' irrespective of the below variable set to true or false.
-/*
+
 variable "enable_default_user" {
   description = "Enable or disable the creation of the default user"
   type        = bool
   default     = false
 }
-*/
 
 #variable "enable_client_ssl" {
 #  description = "Enable or disable the creation of the client ssl"
