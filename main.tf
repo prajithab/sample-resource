@@ -1,4 +1,3 @@
-
 terraform {
   required_version = ">1.0.0"
 }
@@ -203,7 +202,7 @@ resource "google_sql_database" "additional_databases" {
 }
 
 resource "google_sql_user" "default" {
-  //count      = var.enable_default_user ? 1 : 0
+  count      = var.enable_default_user ? 1 : 0
   name       = var.user_name
   project    = var.project_id
   instance   = google_sql_database_instance.default.name
